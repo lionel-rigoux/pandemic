@@ -1,5 +1,6 @@
 {
   "name": "pandemic",
+  "author": "Lionel Rigoux",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -7,12 +8,10 @@
   },
   "main": "index.js",
   "bin": {
-    "scaffold": "index.js"
+    "pandemic": "index.js"
   },
   "dependencies": {
     "caporal": "0.9.0",
-    "colors": "1.1.2",
-    "prompt": "1.0.0",
     "shelljs": "0.8.1"
   }
 }
