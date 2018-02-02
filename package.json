@@ -2,6 +2,7 @@
   "name": "pandemic",
   "author": "Lionel Rigoux",
   "version": "0.0.2",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "https://github.sf.mpg.de/lrigoux/pandemic.git"
