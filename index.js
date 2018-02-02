@@ -6,6 +6,7 @@
 const prog = require('caporal')
 // actions associated with respective commands
 const scaffold = require('./scaffold');
+const publish = require('./publish');
 
 /* Program description */
 /* ========================================================================== */
@@ -24,6 +25,8 @@ prog
 
 prog
   .command('publish', 'Compile a manuscript using pandoc')
+  .option('-f, --format <word|pdf>', 'Destination format',/^pdf|word$/,'pdf')
+  .action(publish);
 
 /* Put everithing to action */
 /* ========================================================================== */
