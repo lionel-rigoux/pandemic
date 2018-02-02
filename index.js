@@ -25,6 +25,7 @@ prog
 
 prog
   .command('publish', 'Compile a manuscript using pandoc')
+  .argument('[source.md]', 'Source file',/\.md$/,'manuscript.md')
   .option('-f, --format <word|pdf>', 'Destination format',/^pdf|word$/,'pdf')
   .action(publish);
 
