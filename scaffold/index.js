@@ -9,7 +9,7 @@ const ncp = require('ncp').ncp
 module.exports = (args, options, logger) => {
 
   // get source and target folders
-  const templateRoot = `${__dirname}/../../templates/scaffold/`
+  const templateRoot = `${__dirname}/templates/`
   const templatePath = `${templateRoot}/${args.template}`
   const localPath = process.cwd()
 

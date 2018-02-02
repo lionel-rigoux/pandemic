@@ -5,7 +5,7 @@
 // CLI framework
 const prog = require('caporal')
 // actions associated with respective commands
-const scaffold = require('./lib/scaffold');
+const scaffold = require('./scaffold');
 
 /* Program description */
 /* ========================================================================== */
