@@ -11,7 +11,7 @@ const publish = require('./publish')
 /* Program description */
 /* ========================================================================== */
 prog
-  .version('0.0.1')
+  .version('0.0.2')
   .description('Academic writing without stress.')
 //  .logger(logger)
 
