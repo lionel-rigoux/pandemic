@@ -1,9 +1,9 @@
 {
   "name": "pandemic",
   "version": "0.0.1",
-  "repository" : {
-    "type" : "git"
-  , "url" : "https://github.sf.mpg.de/lrigoux/pandemic.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.sf.mpg.de/lrigoux/pandemic.git"
   },
   "main": "index.js",
   "bin": {
