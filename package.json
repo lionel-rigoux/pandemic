@@ -10,6 +10,9 @@
     "scaffold": "index.js"
   },
   "dependencies": {
-    "caporal": "0.9.0"
+    "caporal": "0.9.0",
+    "colors": "1.1.2",
+    "prompt": "1.0.0",
+    "shelljs": "0.8.1"
   }
 }
