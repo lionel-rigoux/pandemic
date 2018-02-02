@@ -1,16 +1,18 @@
 const fs = require('fs')
 
 module.exports = (args, options, logger) => {
-
-
   const localPath = process.cwd()
-  const sourceFile = `${localPath}/${args.source}`
+  const source = `${localPath}/${args.source}`
 
-  if (!fs.existsSync(sourceFile)) {
+  if (!fs.existsSync(source)) {
     logger.error(`*** Could not find the source file ${args.source}.`)
-    logger.info(`Are you sure you are in the right folder?`)
   }
 
-  logger.info('Functionality not yet ready!')
+  var sourceFile = source.substr(source.lastIndexOf('/') + 1)
+  var sourceDir = source.substr(0, source.lastIndexOf('/') + 1)
 
+  process.chdir(sourceDir)
+  logger.info('Moving to ' + process.cwd())
+
+  logger.info('Functionality not yet ready!')
 }
