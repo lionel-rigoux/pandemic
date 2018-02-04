@@ -1,0 +1,10 @@
+{
+  "template": "eisvogel.tex",
+  "options": [
+    "--listings",
+    "-V titlepage='true'",
+    "-V titlepage-color='FFFFFF'",
+    "-V titlepage-text-color='000000'",
+    "-V titlepage-rule-color='006C66'"
+  ]
+}
