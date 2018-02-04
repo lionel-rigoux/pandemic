@@ -3,6 +3,8 @@ title: 'This is a pretty neat document'
 author: 'Happy Scientist'
 ---
 
-# Amazing title
+# Introduction
 
-Hello sweety!
+Hello sweety! Have you ever read @darwin1859?
+
+# References
