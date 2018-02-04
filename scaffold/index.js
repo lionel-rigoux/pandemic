@@ -3,11 +3,9 @@ Copy a file tree from one of the package templates to current directory
  */
 
 const fs = require('fs')
-const shell = require('shelljs')
 const ncp = require('ncp').ncp
 
 module.exports = (args, options, logger) => {
-
   // get source and target folders
   const templateRoot = `${__dirname}/templates/`
   const templatePath = `${templateRoot}/${args.template}`
@@ -25,7 +23,7 @@ module.exports = (args, options, logger) => {
       .forEach(file => {
         logger.info(`  - ${file}`)
       })
-      logger.info('\n')
+    logger.info('\n')
     process.exit(1)
   }
 
@@ -37,11 +35,10 @@ module.exports = (args, options, logger) => {
   ncp(templatePath, localPath, copyOptions, err => {
     if (err) {
       logger.error(`The files could not be copied (${err}).`)
-      process.exit(1);
+      process.exit(1)
     }
   })
 
   // confirm success
-  logger.info('The files have been copied!');
-
-};
+  logger.info('The files have been copied!')
+}
