@@ -20,8 +20,31 @@ pandemic scaffold manuscript
 pandemic publish
 ```
 
+## Mindset
+
+Less is more:
+- content, only the content, is stored in the project
+- all the templates and processing scripts are manage by pandemic, out of sight
+
+Convention over configuration:
+- scaffolding creates a canoncial structure
+- publishing relies on this structure to keep configuration to the strict minimum
+
+Agile:
+- easy to update with npm
+- customizable with homemade templates
+
+
+## Roadmap
+
+- propose publishing templates
+- include pandoc filters in the publishing pipeline
+- possibility to add custom scaffolds and publishing templates (recipes) from git
+- add pandoc binaries as dependencies (or not, I don't know yet)
+- Provide tools to process revisions and suggestions (diff display, selective merge, etc.)
+
 ## Requirements
-- node with npm (easy peasy with nvm)
+- npm (easy peasy with nvm)
 - git
 - Pandoc
 - LaTeX
