@@ -4,14 +4,13 @@
 /* ========================================================================== */
 // CLI framework
 const prog = require('caporal')
-const fs = require('fs')
 // actions associated with respective commands
 const scaffold = require('./scaffold')
 const publish = require('./publish')
 
 /* Program description */
 /* ========================================================================== */
-const version = JSON.parse(fs.readFileSync(`${__dirname}/package.json`, 'utf8')).version
+const version = require('./package.json').version
 prog
   .version(version)
   .description('Academic writing without stress.')
