@@ -26,7 +26,7 @@ function parseRecipe (logger, options) {
       logger.error(`The format ${options.format} is not available for recipe "${options.recipe}"`)
 
       var recipeFormats = getRecipeFormats(options.recipe)
-      
+
       if (recipeFormats) {
         logger.info(`\n Available format(s) for this recipe: ${recipeFormats}`)
       } else {
