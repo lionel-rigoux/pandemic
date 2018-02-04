@@ -1,18 +1,16 @@
 const fs = require('fs')
 const yamlFront = require('yaml-front-matter')
 const shell = require('shelljs')
+const {getRecipes, getRecipeFormats} = require('../lib/list-recipes.js')
 
 function parseRecipe (logger, options) {
   let recipeFolder = `${__dirname}/recipes/${options.recipe}`
 
   if (!fs.existsSync(recipeFolder)) {
     logger.error(`The recipe "${options.recipe}" is not installed. Available recipes: \n`)
-
-    fs.readdirSync(`${__dirname}/recipes/`)
-      .filter(file => !(/^\./g).test(file)) // ignore invisible
-      .forEach(file => {
-        logger.info(`  - ${file}`)
-      })
+    getRecipes().forEach(r => {
+      logger.info(`  - ${r.name}`)
+    })
     logger.info('\n')
     process.exit(1)
   }
@@ -27,16 +25,8 @@ function parseRecipe (logger, options) {
       // inform user about available formats
       logger.error(`The format ${options.format} is not available for recipe "${options.recipe}"`)
 
-      var recipeFormats = fs.readdirSync(recipeFolder)
-        .reduce((fList, file) => {
-          let format = file.match(/^recipe\.(.+)\.json$/)
-          if (format) {
-            return fList + format[1] + ' '
-          } else {
-            return fList
-          }
-        }, '')
-
+      var recipeFormats = getRecipeFormats(options.recipe)
+      
       if (recipeFormats) {
         logger.info(`\n Available format(s) for this recipe: ${recipeFormats}`)
       } else {
