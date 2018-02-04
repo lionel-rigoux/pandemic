@@ -20,9 +20,6 @@ module.exports = (args, options, logger) => {
   var sourceFilename = source.substr(source.lastIndexOf('/') + 1)
   var sourceDir = source.substr(0, source.lastIndexOf('/') + 1)
 
-  // move to source directory to ease path dependencies
-  // process.chdir(sourceDir)
-
   // create target directory
   var targetDir = `${sourceDir}/public`
   fs.existsSync(targetDir) || fs.mkdirSync(targetDir)
@@ -38,9 +35,14 @@ module.exports = (args, options, logger) => {
   if (!frontMatter.bibliography) {
     // if no custom bib file specified, look for default if it's there
     if (fs.existsSync(`${sourceDir}/bibliography.bib`)) {
-      pandocCmd += ` --bibliography=${sourceDir}/bibliography.bib`
+      pandocCmd += ` --bibliography=bibliography.bib`
     }
   }
+
+  // ensure images and dependencies are found
+  process.chdir(sourceDir)
+  // the following would be better but need pandoc > v2.1.1
+  // pandocCmd += ` --resource-path=${sourceDir}`
 
   // start conversion
   logger.info('Processing...')
