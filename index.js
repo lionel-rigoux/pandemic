@@ -28,6 +28,7 @@ prog
   .command('publish', 'Compile a manuscript using pandoc')
   .argument('[source]', 'Source file', /\.md$/, 'manuscript.md')
   .option('-f, --format <docx|pdf>', 'Destination format', /^pdf|docx$/, 'pdf')
+  .option('--to <recipe>', 'template to use for compiling')
   .action(publish)
 
 /* Put everithing to action */
