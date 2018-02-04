@@ -1,5 +1,6 @@
 const fs = require('fs')
 const shell = require('shelljs')
+const yamlFront = require('yaml-front-matter')
 
 module.exports = (args, options, logger) => {
   const localPath = process.cwd()
@@ -19,9 +20,6 @@ module.exports = (args, options, logger) => {
   var sourceFilename = source.substr(source.lastIndexOf('/') + 1)
   var sourceDir = source.substr(0, source.lastIndexOf('/') + 1)
 
-  // move to source directory to ease path dependencies
-  process.chdir(sourceDir)
-
   // create target directory
   var targetDir = `${sourceDir}/public`
   fs.existsSync(targetDir) || fs.mkdirSync(targetDir)
@@ -29,9 +27,25 @@ module.exports = (args, options, logger) => {
   // build target filename
   var targetFilename = sourceFilename.substring(0, sourceFilename.lastIndexOf('.'))
 
+  /* PANDOC OPTIONS */
+  var pandocCmd = `pandoc ${source} -o ${sourceDir}/public/${targetFilename}.${options.format}`
+
+  // check for bibliography: front-matter > default bib > none
+  var frontMatter = yamlFront.loadFront(fs.readFileSync(source))
+  if (!frontMatter.bibliography) {
+    // if no custom bib file specified, look for default if it's there
+    if (fs.existsSync(`${sourceDir}/bibliography.bib`)) {
+      pandocCmd += ` --bibliography=bibliography.bib`
+    }
+  }
+
+  // ensure images and dependencies are found
+  process.chdir(sourceDir)
+  // the following would be better but need pandoc > v2.1.1
+  // pandocCmd += ` --resource-path=${sourceDir}`
+
   // start conversion
   logger.info('Processing...')
-  var pandocCmd = `pandoc ./${sourceFilename} -o ./public/${targetFilename}.${options.format}`
   var status = shell.exec(pandocCmd)
   if (status.code !== 0) {
     logger.error(status.stderr)
