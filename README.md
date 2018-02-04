@@ -9,6 +9,9 @@ npm install -g  git+ssh://git@github.sf.mpg.de:lrigoux/pandemic.git
 > Note that you need to have a proper ssh authorization to login to github.sf.mpg.de for this to work
 
 ## Usage
+
+## Basics
+
 ```
 # Find a cosy place
 cd my-new-project
@@ -18,6 +21,13 @@ pandemic scaffold manuscript
 
 # Convert to publication ready document
 pandemic publish
+```
+
+## Recipes
+
+```
+# Convert to publication ready document
+pandemic publish --to tufte
 ```
 
 ## Mindset
