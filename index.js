@@ -11,7 +11,7 @@ const publish = require('./publish')
 
 /* Program description */
 /* ========================================================================== */
-const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version
+const version = JSON.parse(fs.readFileSync(`${__dirname}/package.json`, 'utf8')).version
 prog
   .version(version)
   .description('Academic writing without stress.')
