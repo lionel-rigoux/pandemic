@@ -9,11 +9,13 @@ module.exports = (args, options, logger) => {
   // check that the source file exists
   if (!fs.existsSync(source)) {
     logger.error(`*** Could not find the source file ${args.source}.`)
+    process.exit(1)
   }
 
   // check that pandoc is there
   if (!shell.which('pandoc')) {
     logger.error('*** Please install pandoc to use this script')
+    process.exit(1)
   }
 
   // extract source directory and filename

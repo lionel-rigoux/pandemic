@@ -6,7 +6,15 @@ function parseRecipe (logger, options) {
   let recipeFolder = `${__dirname}/recipes/${options.recipe}`
 
   if (!fs.existsSync(recipeFolder)) {
-    throw Error(`Could not not find recipe "${options.recipe}"`)
+    logger.error(`The recipe "${options.recipe}" is not installed. Available recipes: \n`)
+
+    fs.readdirSync(`${__dirname}/recipes/`)
+      .filter(file => !(/^\./g).test(file)) // ignore invisible
+      .forEach(file => {
+        logger.info(`  - ${file}`)
+      })
+    logger.info('\n')
+    process.exit(1)
   }
 
   let recipeFile = `${recipeFolder}/recipe.${options.format}.json`
@@ -16,8 +24,27 @@ function parseRecipe (logger, options) {
       // fallback to pandoc default
       return {}
     } else {
-      throw Error(`Recipe "${options.recipe}" does not handle ${options.format} format.`)
-      // TODO: try default recipe with best candidate as template in the folder
+      // inform user about available formats
+      logger.error(`The format ${options.format} is not available for recipe "${options.recipe}"`)
+
+      var recipeFormats = fs.readdirSync(recipeFolder)
+        .reduce((fList, file) => {
+          let format = file.match(/^recipe\.(.+)\.json$/)
+          if (format) {
+            return fList + format[1] + ' '
+          } else {
+            return fList
+          }
+        }, '')
+
+      if (recipeFormats) {
+        logger.info(`\n Available format(s) for this recipe: ${recipeFormats}`)
+      } else {
+        logger.info('No instructions could be found for this recipe...')
+        // TODO: try default recipe with best candidate as template in the folder
+      }
+      logger.info('\n')
+      process.exit(1)
     }
   }
 
