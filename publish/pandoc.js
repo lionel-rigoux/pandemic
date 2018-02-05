@@ -59,7 +59,11 @@ function compileDocument (logger, options) {
 
   // add pandoc options
   if (recipe.options) {
-    pandocCmd += ` ${recipe.options}`
+    if (typeof recipe.options === 'string') {
+      pandocCmd += ` ${recipe.options}`
+    } else {
+      pandocCmd += ` ${recipe.options.join(' ')}`
+    }
   }
 
   // use template if needed
