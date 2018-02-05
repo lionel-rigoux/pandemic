@@ -26,7 +26,8 @@ pandemic publish
 ## Recipes
 
 ```
-# Convert to publication ready document
+# Conversion using pandoc recipes
+pandemic publish --to eisvogel
 pandemic publish --to tufte
 ```
 
@@ -37,7 +38,7 @@ Less is more:
 - all the templates and processing scripts are manage by pandemic, out of sight
 
 Convention over configuration:
-- scaffolding creates a canoncial structure
+- scaffolding creates a canonical structure
 - publishing relies on this structure to keep configuration to the strict minimum
 
 Agile:
@@ -47,11 +48,11 @@ Agile:
 
 ## Roadmap
 
-- propose publishing templates
-- include pandoc filters in the publishing pipeline
-- possibility to add custom scaffolds and publishing templates (recipes) from git
-- add pandoc binaries as dependencies (or not, I don't know yet)
-- Provide tools to process revisions and suggestions (diff display, selective merge, etc.)
+- [x] propose publishing templates
+- [ ] include pandoc filters in the publishing pipeline
+- [ ] possibility to add custom scaffolds and publishing recipes from git (like in [scaffold-it](https://github.com/solid-stack/scaffold-it))
+- [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
+- [ ] Provide tools to process revisions and suggestions (diff display, selective merge, etc.), maybe, one day
 
 ## Requirements
 - npm (easy peasy with nvm)
