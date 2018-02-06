@@ -1,10 +1,11 @@
 const fs = require('fs')
 const pandoc = require('./pandoc.js')
 const shell = require('shelljs')
+const path = require('path')
 
 module.exports = (args, options, logger) => {
   const localPath = process.cwd()
-  const source = `${localPath}/${args.source}`
+  const source = path.join(localPath, args.source)
 
   // check that the source file exists
   if (!fs.existsSync(source)) {
@@ -19,20 +20,18 @@ module.exports = (args, options, logger) => {
   }
 
   // extract source directory and filename
-  var sourceFilename = source.substr(source.lastIndexOf('/') + 1)
-  var sourceDir = source.substr(0, source.lastIndexOf('/') + 1)
+  let sourceFilename = path.basename(source)
+  let sourceDir = path.dirname(source)
 
   // create target directory
-  var targetDir = `${sourceDir}/public`
+  let targetDir = path.join(sourceDir, 'public')
   fs.existsSync(targetDir) || fs.mkdirSync(targetDir)
 
   // build target filename
-  var targetFilename = sourceFilename.substring(0, sourceFilename.lastIndexOf('.'))
+  var targetFilename = path.basename(source, '.md')
 
   // ensure images and dependencies are found
   process.chdir(sourceDir)
-  // the following would be better but need pandoc > v2.1.1
-  // pandocCmd += ` --resource-path=${sourceDir}`
 
   try {
     pandoc(logger, {

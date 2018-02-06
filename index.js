@@ -7,6 +7,7 @@ const prog = require('caporal')
 // actions associated with respective commands
 const scaffold = require('./scaffold')
 const publish = require('./publish')
+const resources = require('./resources')
 
 /* Program description */
 /* ========================================================================== */
@@ -29,6 +30,11 @@ prog
   .option('-f, --format <docx|pdf>', 'Destination format', /^pdf|docx|html$/, 'pdf')
   .option('--to <recipe>', 'template to use for compiling')
   .action(publish)
+
+prog
+  .command('resources', 'Manage scaffolding and publishing templates')
+  .option('--list', 'list installed templates')
+  .action(resources)
 
 /* Put everithing to action */
 /* ========================================================================== */

@@ -2,11 +2,12 @@ const fs = require('fs')
 const yamlFront = require('yaml-front-matter')
 const shell = require('shelljs')
 const {getRecipes, getRecipeFormats} = require('../lib/list-recipes.js')
+const path = require('path')
 
 function parseRecipe (logger, options) {
-  let recipeFolder = `${__dirname}/recipes/${options.recipe}`
+  let recipeFolder = path.join(__dirname, 'recipes', options.recipe)
 
-  if (!fs.existsSync(recipeFolder)) {
+  if (options.recipe !== 'default' && !fs.existsSync(recipeFolder)) {
     logger.error(`The recipe "${options.recipe}" is not installed. Available recipes: \n`)
     getRecipes().forEach(r => {
       logger.info(`  - ${r.name}`)
@@ -15,7 +16,7 @@ function parseRecipe (logger, options) {
     process.exit(1)
   }
 
-  let recipeFile = `${recipeFolder}/recipe.${options.format}.json`
+  let recipeFile = path.join(recipeFolder, `recipe.${options.format}.json`)
 
   if (!fs.existsSync(recipeFile)) {
     if (options.recipe === 'default') {
@@ -38,17 +39,17 @@ function parseRecipe (logger, options) {
     }
   }
 
-  return JSON.parse(fs.readFileSync(recipeFile))
+  return require(recipeFile)
 }
 
 function compileDocument (logger, options) {
   /* PANDOC OPTIONS */
-  var pandocCmd = `pandoc ${options.source} -o ./public/${options.target}.${options.format}`
+  let pandocCmd = `pandoc ${options.source} -o ./public/${options.target}.${options.format}`
 
-  pandocCmd += ` --resource-path=.:${__dirname}/recipes/${options.recipe}/`
+  pandocCmd += ` --resource-path=.:${path.join(__dirname, 'recipes', options.recipe)}/`
 
   // check for bibliography: front-matter > default bib > none
-  var frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
+  let frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
   if (!frontMatter.bibliography) {
     // if no custom bib file specified, look for default if it's there
     if (fs.existsSync(`bibliography.bib`)) {
@@ -62,15 +63,15 @@ function compileDocument (logger, options) {
   // add pandoc options
   if (recipe.options) {
     if (typeof recipe.options === 'string') {
-      pandocCmd += ` ${recipe.options}`
+      pandocCmd += ' ' + recipe.options
     } else {
-      pandocCmd += ` ${recipe.options.join(' ')}`
+      pandocCmd += ' ' + recipe.options.join(' ')
     }
   }
 
   // use template if needed
   if (recipe.template) {
-    pandocCmd += ` --template=${__dirname}/recipes/${options.recipe}/${recipe.template}`
+    pandocCmd += ` --template=${path.join(__dirname, 'recipes', options.recipe, recipe.template)}`
   }
 
   // use filters
