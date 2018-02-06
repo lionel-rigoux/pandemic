@@ -45,6 +45,8 @@ function compileDocument (logger, options) {
   /* PANDOC OPTIONS */
   var pandocCmd = `pandoc ${options.source} -o ./public/${options.target}.${options.format}`
 
+  pandocCmd += ` --resource-path=.:${__dirname}/recipes/${options.recipe}/`
+
   // check for bibliography: front-matter > default bib > none
   var frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
   if (!frontMatter.bibliography) {
