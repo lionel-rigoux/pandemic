@@ -8,12 +8,29 @@ const help = require('../lib/help.js')
 function parseRecipe (logger, options) {
   let recipeFolder = path.join(__dirname, 'recipes', options.recipe)
 
+  // check if recipe folder exists
   if (options.recipe !== 'default' && !fs.existsSync(recipeFolder)) {
     logger.error(`The recipe "${options.recipe}" is not installed.`)
     help.dispRecipes(logger)
     process.exit(1)
   }
 
+  // look for most likely format if none defined
+  if (!options.format) {
+    if (options.recipe === 'default') {
+      options.format = 'pdf'
+    } else {
+      let formats = resources
+        .getRecipeFormats(options.recipe)
+      if (formats.length>1) {
+        logger.error(`The ${options.recipe} recipe has multiple associated formats (${formats.join(', ')})`)
+        logger.info('Please specify a format using -f ext or --format ext.')
+        process.exit(1)
+      } else {
+        options.format = formats[0]
+      }
+    }
+  }
   let recipeFile = path.join(recipeFolder, `recipe.${options.format}.json`)
 
   if (!fs.existsSync(recipeFile)) {
@@ -40,7 +57,7 @@ function compileDocument (logger, options) {
 
   // target file
   pandocCmd += ` -o ./public/${options.target}.${options.format}`
-  
+
   // include source and template directory in search path
   pandocCmd += ` --resource-path=.:${path.join(__dirname, 'recipes', options.recipe)}/`
 
