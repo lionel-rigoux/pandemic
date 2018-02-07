@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "caporal": "0.9.0",
+    "mkdirp": "0.5.1",
     "ncp": "2.0.0",
     "shelljs": "0.8.1",
     "yaml-front-matter": "3.4.0"
