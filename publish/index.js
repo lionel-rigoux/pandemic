@@ -37,7 +37,7 @@ module.exports = (args, options, logger) => {
     pandoc(logger, {
       source: sourceFilename,
       target: targetFilename,
-      recipe: options.to || 'default',
+      recipe: options.to ,
       format: options.format
     })
   } catch (err) {

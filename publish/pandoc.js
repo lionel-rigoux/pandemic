@@ -4,51 +4,67 @@ const shell = require('shelljs')
 const resources = require('../lib/resources-tools.js')
 const path = require('path')
 const help = require('../lib/help.js')
+const recipesFolder = path.join(__dirname, 'recipes')
 
 function parseRecipe (logger, options) {
-  let recipeFolder = path.join(__dirname, 'recipes', options.recipe)
 
-  // check if recipe folder exists
-  if (options.recipe !== 'default' && !fs.existsSync(recipeFolder)) {
+  if (!options.recipe) {
+  /* if no info provided, fallback to default */
+    return {
+      name: 'default',
+      format: options.format || 'pdf'
+    }
+    // TODO: load default recipes with minimal options (eg. filters)
+  }
+
+  // check if recipe exists
+  if (!resources.getRecipes().includes(options.recipe)) {
     logger.error(`The recipe "${options.recipe}" is not installed.`)
     help.dispRecipes(logger)
     process.exit(1)
   }
 
-  // look for most likely format if none defined
-  if (!options.format) {
-    if (options.recipe === 'default') {
-      options.format = 'pdf'
-    } else {
-      let formats = resources
-        .getRecipeFormats(options.recipe)
-      if (formats.length>1) {
-        logger.error(`The ${options.recipe} recipe has multiple associated formats (${formats.join(', ')})`)
-        logger.info('Please specify a format using -f ext or --format ext.')
-        process.exit(1)
-      } else {
-        options.format = formats[0]
-      }
-    }
-  }
-  let recipeFile = path.join(recipeFolder, `recipe.${options.format}.json`)
+  // find path to recipe folder
+  let recipeFolder = path.join(recipesFolder, options.recipe)
 
-  if (!fs.existsSync(recipeFile)) {
-    if (options.recipe === 'default') {
-      // fallback to pandoc default
-      return {}
-    } else {
-      // inform user about available formats
+  // resolve format
+  let formats = resources.getRecipeFormats(options.recipe)
+
+  // check if format exists
+  if (options.format & !formats.includes(options.format)) {
       logger.error(`The format ${options.format} is not available for recipe "${options.recipe}"`)
       help.dispFormats(logger,options.recipe)
+      process.exit(1)
+  }
+
+  // guess format if none provided
+  if (!options.format) {
+    if (formats.length===1) {
+      options.format = formats[0]
+    } else {
+      // TODO: guess format from template extension
+      logger.error(`The ${options.recipe} recipe has multiple associated formats (${formats.join(', ')})`)
+      logger.info('Please specify a format using -f ext or --format ext.')
       process.exit(1)
     }
   }
 
-  return require(recipeFile)
+  // find path to recipe file
+  let recipeFile = path.join(recipeFolder, `recipe.${options.format}.json`)
+
+  // return json
+  let recipe = require(recipeFile)
+  recipe.name = options.recipe
+  recipe.format = options.format
+
+  return recipe
 }
 
 function compileDocument (logger, options) {
+
+  // parse recipe
+  let recipe = parseRecipe(logger, options)
+
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
 
@@ -56,10 +72,12 @@ function compileDocument (logger, options) {
   pandocCmd += options.source
 
   // target file
-  pandocCmd += ` -o ./public/${options.target}.${options.format}`
+  pandocCmd += ` -o ./public/${options.target}.${recipe.format}`
 
   // include source and template directory in search path
-  pandocCmd += ` --resource-path=.:${path.join(__dirname, 'recipes', options.recipe)}/`
+  if (recipe.name !== 'default') {
+    pandocCmd += ` --resource-path=.:${path.join(recipesFolder, recipe.name)}/`
+  }
 
   // check for bibliography: front-matter > default bib > none
   let frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
@@ -70,12 +88,9 @@ function compileDocument (logger, options) {
     }
   }
 
-  // parse recipe
-  var recipe = parseRecipe(logger, options)
-
   // use template if needed
   if (recipe.template) {
-    pandocCmd += ` --template=${path.join(__dirname, 'recipes', options.recipe, recipe.template)}`
+    pandocCmd += ` --template=${path.join(recipesFolder, recipe.name, recipe.template)}`
   }
 
   // add pandoc options
