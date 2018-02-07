@@ -15,6 +15,7 @@
     "caporal": "0.9.0",
     "mkdirp": "0.5.1",
     "ncp": "2.0.0",
+    "parse-github-url": "1.0.2",
     "shelljs": "0.8.1",
     "yaml-front-matter": "3.4.0"
   }
