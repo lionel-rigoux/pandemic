@@ -1,18 +1,16 @@
 const fs = require('fs')
 const yamlFront = require('yaml-front-matter')
 const shell = require('shelljs')
-const {getRecipes, getRecipeFormats} = require('../lib/list-recipes.js')
+const resources = require('../lib/resources-tools.js')
 const path = require('path')
+const help = require('../lib/help.js')
 
 function parseRecipe (logger, options) {
   let recipeFolder = path.join(__dirname, 'recipes', options.recipe)
 
   if (options.recipe !== 'default' && !fs.existsSync(recipeFolder)) {
-    logger.error(`The recipe "${options.recipe}" is not installed. Available recipes: \n`)
-    getRecipes().forEach(r => {
-      logger.info(`  - ${r.name}`)
-    })
-    logger.info('\n')
+    logger.error(`The recipe "${options.recipe}" is not installed.`)
+    help.dispRecipes(logger)
     process.exit(1)
   }
 
@@ -25,16 +23,7 @@ function parseRecipe (logger, options) {
     } else {
       // inform user about available formats
       logger.error(`The format ${options.format} is not available for recipe "${options.recipe}"`)
-
-      var recipeFormats = getRecipeFormats(options.recipe)
-
-      if (recipeFormats) {
-        logger.info(`\n Available format(s) for this recipe: ${recipeFormats}`)
-      } else {
-        logger.info('No instructions could be found for this recipe...')
-        // TODO: try default recipe with best candidate as template in the folder
-      }
-      logger.info('\n')
+      help.dispFormats(logger,options.recipe)
       process.exit(1)
     }
   }
@@ -44,8 +33,15 @@ function parseRecipe (logger, options) {
 
 function compileDocument (logger, options) {
   /* PANDOC OPTIONS */
-  let pandocCmd = `pandoc ${options.source} -o ./public/${options.target}.${options.format}`
+  let pandocCmd = 'pandoc '
 
+  // source file
+  pandocCmd += options.source
+
+  // target file
+  pandocCmd += ` -o ./public/${options.target}.${options.format}`
+  
+  // include source and template directory in search path
   pandocCmd += ` --resource-path=.:${path.join(__dirname, 'recipes', options.recipe)}/`
 
   // check for bibliography: front-matter > default bib > none
@@ -60,6 +56,11 @@ function compileDocument (logger, options) {
   // parse recipe
   var recipe = parseRecipe(logger, options)
 
+  // use template if needed
+  if (recipe.template) {
+    pandocCmd += ` --template=${path.join(__dirname, 'recipes', options.recipe, recipe.template)}`
+  }
+
   // add pandoc options
   if (recipe.options) {
     if (typeof recipe.options === 'string') {
@@ -67,11 +68,6 @@ function compileDocument (logger, options) {
     } else {
       pandocCmd += ' ' + recipe.options.join(' ')
     }
-  }
-
-  // use template if needed
-  if (recipe.template) {
-    pandocCmd += ` --template=${path.join(__dirname, 'recipes', options.recipe, recipe.template)}`
   }
 
   // use filters
