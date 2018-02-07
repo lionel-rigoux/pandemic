@@ -7,7 +7,6 @@ const prog = require('caporal')
 // actions associated with respective commands
 const scaffold = require('./scaffold')
 const publish = require('./publish')
-const resources = require('./resources')
 
 /* Program description */
 /* ========================================================================== */
@@ -34,7 +33,7 @@ prog
 prog
   .command('resources', 'Manage scaffolding and publishing templates')
   .option('--list', 'list installed templates')
-  .action(resources)
+  .action((a,o,l)=>l.info('soon...'))
 
 /* Put everithing to action */
 /* ========================================================================== */

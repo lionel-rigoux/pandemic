@@ -4,7 +4,10 @@ const shell = require('shelljs')
 const resources = require('../lib/resources-tools.js')
 const path = require('path')
 const help = require('../lib/help.js')
-const recipesFolder = path.join(__dirname, 'recipes')
+const config = require('../config.js')
+
+
+const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
 
 function parseRecipe (logger, options) {
 
@@ -72,7 +75,7 @@ function compileDocument (logger, options) {
   pandocCmd += options.source
 
   // target file
-  pandocCmd += ` -o ./public/${options.target}.${recipe.format}`
+  pandocCmd += ' -o '+ path.join(config.TARGET_PATH,`${options.target}.${recipe.format}`)
 
   // include source and template directory in search path
   if (recipe.name !== 'default') {

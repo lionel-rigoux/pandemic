@@ -4,11 +4,13 @@ Copy a file tree from one of the package templates to current directory
 
 const fs = require('fs')
 const ncp = require('ncp').ncp
+const config = require('../config.js')
+const path = require('path')
 
 module.exports = (args, options, logger) => {
   // get source and target folders
-  const templateRoot = `${__dirname}/templates/`
-  const templatePath = `${templateRoot}/${args.template}`
+  const templateRoot = path.join(config.RESOURCES_PATH,'templates')
+  const templatePath = path.join(templateRoot, args.template)
   const localPath = process.cwd()
 
   // optional destructive copying

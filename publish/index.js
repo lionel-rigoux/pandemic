@@ -2,10 +2,10 @@ const fs = require('fs')
 const pandoc = require('./pandoc.js')
 const shell = require('shelljs')
 const path = require('path')
+const config = require('../config.js')
 
 module.exports = (args, options, logger) => {
-  const localPath = process.cwd()
-  const source = path.join(localPath, args.source)
+  const source = path.join(process.cwd(), args.source)
 
   // check that the source file exists
   if (!fs.existsSync(source)) {
@@ -24,7 +24,7 @@ module.exports = (args, options, logger) => {
   let sourceDir = path.dirname(source)
 
   // create target directory
-  let targetDir = path.join(sourceDir, 'public')
+  let targetDir = path.join(sourceDir, config.TARGET_PATH)
   fs.existsSync(targetDir) || fs.mkdirSync(targetDir)
 
   // build target filename
@@ -37,7 +37,7 @@ module.exports = (args, options, logger) => {
     pandoc(logger, {
       source: sourceFilename,
       target: targetFilename,
-      recipe: options.to ,
+      recipe: options.to,
       format: options.format
     })
   } catch (err) {
