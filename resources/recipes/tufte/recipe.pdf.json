@@ -1,5 +1,3 @@
 {
-  "options": "",
-  "template": "tufte.tex",
-  "fitlers": []
+  "template": "tufte.tex"
 }

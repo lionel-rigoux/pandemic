@@ -12,7 +12,9 @@ const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
 function compileDocument(logger, options) {
   // load recipe
   let recipe = loadRecipe(options.recipe, options.format)
+  logger.debug('Using recipe: ')
   logger.debug(recipe)
+  logger.debug('')
 
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
@@ -26,7 +28,7 @@ function compileDocument(logger, options) {
 
   // include source and template directory in search path
   if (recipe.name !== 'default') {
-    pandocCmd += ` --resource-path=.:${path.join(recipesFolder, recipe.name)}/`
+    pandocCmd += ` --resource-path=.${path.delimiter}${path.join(recipesFolder, recipe.name)}`
   }
 
   // check for bibliography: front-matter > default bib > none
@@ -64,6 +66,7 @@ function compileDocument(logger, options) {
   }
 
   // start conversion
+  logger.debug(`Calling: \n ${pandocCmd}\n`)
   logger.info('Processing...')
 
   var status = shell.exec(pandocCmd)
