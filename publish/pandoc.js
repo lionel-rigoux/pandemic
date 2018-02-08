@@ -12,7 +12,9 @@ const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
 function compileDocument(logger, options) {
   // load recipe
   let recipe = loadRecipe(options.recipe, options.format)
+  logger.debug('Using recipe: ')
   logger.debug(recipe)
+  logger.debug('')
 
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
@@ -64,6 +66,7 @@ function compileDocument(logger, options) {
   }
 
   // start conversion
+  logger.debug(`Calling: \n ${pandocCmd}\n`)
   logger.info('Processing...')
 
   var status = shell.exec(pandocCmd)
