@@ -55,10 +55,11 @@ Agile:
 
 - [x] propose publishing templates
 - [ ] include pandoc filters in the publishing pipeline
-- [ ] possibility to add custom scaffolds and publishing recipes from git (like in [scaffold-it](https://github.com/solid-stack/scaffold-it))
-- [ ] Extract the logic so pandemic could be used as a module and not only as a CLI.
+- [x] possibility to add custom scaffolds and publishing recipes from git
+- [ ] extract the logic so pandemic could be used as a module and not only as a CLI.
 - [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
-- [ ] Provide tools to process revisions and suggestions (diff display, selective merge, etc.), maybe, one day
+- [ ] option to extract images
+- [ ] provide tools to process revisions and suggestions (diff display, selective merge, etc.), maybe, one day
 
 ## Requirements
 
