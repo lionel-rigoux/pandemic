@@ -54,7 +54,7 @@ Agile:
 ## Roadmap
 
 - [x] propose publishing templates
-- [ ] include pandoc filters in the publishing pipeline
+- [x] include pandoc filters in the publishing pipeline
 - [x] possibility to add custom scaffolds and publishing recipes from git
 - [ ] extract the logic so pandemic could be used as a module and not only as a CLI.
 - [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
@@ -80,6 +80,12 @@ nvm install v8.9.4
 Go to the [Pandoc website](https://github.com/jgm/pandoc/releases), download the installer for your system, run the installer.
 
 > Future versions of Pandemic will include pandoc binaries to avoid compatibility issues.
+
+You will also need to install the following pandoc filters
+
+- [pandoc-fignos](https://github.com/tomduck/pandoc-fignos)
+- [pandoc-eqnos](https://github.com/tomduck/pandoc-eqnos)
+- [pandoc-tablenos](https://github.com/tomduck/pandoc-tablenos)
 
 ### LaTeX
 
