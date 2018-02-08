@@ -5,69 +5,14 @@ const resources = require('../lib/resources-tools.js')
 const path = require('path')
 const help = require('../lib/help.js')
 const config = require('../config.js')
-
+const guessRecipe = require('../lib/guess-recipe')
 
 const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
 
-function parseRecipe (logger, options) {
-
-  if (!options.recipe) {
-  /* if no info provided, fallback to default */
-    return {
-      name: 'default',
-      format: options.format || 'pdf'
-    }
-    // TODO: load default recipes with minimal options (eg. filters)
-  }
-
-  // check if recipe exists
-  if (!resources.getRecipes().includes(options.recipe)) {
-    logger.error(`The recipe "${options.recipe}" is not installed.`)
-    help.dispRecipes(logger)
-    process.exit(1)
-  }
-
-  // find path to recipe folder
-  let recipeFolder = path.join(recipesFolder, options.recipe)
-
-  // resolve format
-  let formats = resources.getRecipeFormats(options.recipe)
-
-  // check if format exists
-  if (options.format & !formats.includes(options.format)) {
-      logger.error(`The format ${options.format} is not available for recipe "${options.recipe}"`)
-      help.dispFormats(logger,options.recipe)
-      process.exit(1)
-  }
-
-  // guess format if none provided
-  if (!options.format) {
-    if (formats.length===1) {
-      options.format = formats[0]
-    } else {
-      // TODO: guess format from template extension
-      logger.error(`The ${options.recipe} recipe has multiple associated formats (${formats.join(', ')})`)
-      logger.info('Please specify a format using -f ext or --format ext.')
-      process.exit(1)
-    }
-  }
-
-  // find path to recipe file
-  let recipeFile = path.join(recipeFolder, `recipe.${options.format}.json`)
-
-  // return json
-  let recipe = require(recipeFile)
-  recipe.name = options.recipe
-  recipe.format = options.format
-
-  return recipe
-}
-
-function compileDocument (logger, options) {
-
-  // parse recipe
-  let recipe = parseRecipe(logger, options)
-
+function compileDocument(logger, options) {
+  // load recipe
+  let recipe = guessRecipe(options.recipe, options.format)
+  logger.debug(recipe)
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
 
@@ -75,7 +20,8 @@ function compileDocument (logger, options) {
   pandocCmd += options.source
 
   // target file
-  pandocCmd += ' -o '+ path.join(config.TARGET_PATH,`${options.target}.${recipe.format}`)
+  pandocCmd +=
+    ' -o ' + path.join(config.TARGET_PATH, `${options.target}.${recipe.format}`)
 
   // include source and template directory in search path
   if (recipe.name !== 'default') {
@@ -93,7 +39,11 @@ function compileDocument (logger, options) {
 
   // use template if needed
   if (recipe.template) {
-    pandocCmd += ` --template=${path.join(recipesFolder, recipe.name, recipe.template)}`
+    pandocCmd += ` --template=${path.join(
+      recipesFolder,
+      recipe.name,
+      recipe.template
+    )}`
   }
 
   // add pandoc options
