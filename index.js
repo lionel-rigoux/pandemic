@@ -7,6 +7,7 @@ const prog = require('caporal')
 // actions associated with respective commands
 const scaffold = require('./scaffold')
 const publish = require('./publish')
+const manage = require('./manage')
 
 /* Program description */
 /* ========================================================================== */
@@ -26,9 +27,12 @@ prog
 prog
   .command('publish', 'Compile a manuscript using pandoc')
   .argument('[source]', 'Source file', /\.md$/, 'manuscript.md')
-  .option('-f, --format <docx|pdf>', 'Destination format', /^pdf|docx$/, 'pdf')
   .option('--to <recipe>', 'template to use for compiling')
+  .option('-f, --format <ext>', 'Destination format extension', /^pdf|docx|html$/)
   .action(publish)
+
+manage()
+
 
 /* Put everithing to action */
 /* ========================================================================== */

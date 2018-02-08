@@ -2,6 +2,7 @@
 CLI tool for the smart scientist
 
 ## Install
+
 ```
 npm install -g  git+ssh://git@github.sf.mpg.de:lrigoux/pandemic.git
 ```
@@ -21,6 +22,10 @@ pandemic scaffold manuscript
 
 # Convert to publication ready document
 pandemic publish
+
+# Get some info to go further
+pandemic help
+pandemic help <command>
 ```
 
 ## Recipes
@@ -50,15 +55,39 @@ Agile:
 
 - [x] propose publishing templates
 - [ ] include pandoc filters in the publishing pipeline
-- [ ] possibility to add custom scaffolds and publishing recipes from git (like in [scaffold-it](https://github.com/solid-stack/scaffold-it))
+- [x] possibility to add custom scaffolds and publishing recipes from git
+- [ ] extract the logic so pandemic could be used as a module and not only as a CLI.
 - [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
-- [ ] Provide tools to process revisions and suggestions (diff display, selective merge, etc.), maybe, one day
+- [ ] option to extract images
+- [ ] provide tools to process revisions and suggestions (diff display, selective merge, etc.), maybe, one day
 
 ## Requirements
-- npm (easy peasy with nvm)
-- git
-- Pandoc
-- LaTeX
+
+### Node & npm
+
+The best way to do this is to use [nvm](https://github.com/creationix/nvm).
+
+**TL;DR:**
+
+```
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+source ~/.bashrc
+nvm install v8.9.4
+```
+
+### pandoc
+
+Go to the [Pandoc website](https://github.com/jgm/pandoc/releases), download the installer for your system, run the installer.
+
+> Future versions of Pandemic will include pandoc binaries to avoid compatibility issues.
+
+### LaTeX
+
+This is needed to compile documents to pdf. See [here](https://www.latex-project.org/get/) to get the binaries.
+
+### git
+
+Well, I hope you already have this one installed!
 
 ## Copyright
 Dr. Lionel Rigoux, lionel.rigoux@sf.mpg.de (C) 2017 Max Planck Institute for Metabolism Research, Cologne
