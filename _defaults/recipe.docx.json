@@ -1,5 +1,4 @@
 {
-  "options": "--self-contained",
   "filters": [
     "pandoc-fignos",
     "pandoc-eqnos",
