@@ -9,7 +9,7 @@ const path = require('path')
 
 module.exports = (args, options, logger) => {
   // get source and target folders
-  const templateRoot = path.join(config.RESOURCES_PATH,'templates')
+  const templateRoot = config.SCAFFOLDS_PATH
   const templatePath = path.join(templateRoot, args.template)
   const localPath = process.cwd()
 

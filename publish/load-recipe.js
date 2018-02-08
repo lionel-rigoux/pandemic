@@ -51,19 +51,21 @@ function loadRecipe(recipe, format) {
     let recipePath = path.join(config.RECIPES_PATH, recipe)
     let recipeFilePath = path.join(recipePath, `recipe.${format}.json`)
 
+    // start with default
+    let recipeJson = loadDefault(format)
+    recipeJson.name = recipe
+    recipeJson.format = format
+
+
     // if found, return recipe
     // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     if (fs.existsSync(recipeFilePath)) {
       let recipeFile = require(recipeFilePath)
-      recipeFile.name = recipe
-      recipeFile.format = format
-      return recipeFile
+      return Object.assign({}, recipeJson, recipeFile)
 
       // no recipe file, but the format can help guess the template
       // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     } else {
-      // start with default
-      let recipeJson = loadDefault(format)
 
       // see if we can find a file that look like a template for the given format
       let candidates = fsTools
@@ -75,8 +77,6 @@ function loadRecipe(recipe, format) {
       // if no ambiguity, use candidate as template
       if (candidates.length === 1) {
         recipeJson.template = candidates[0]
-        recipeJson.name = recipe // will be used as resource folder
-        recipeFile.format = format
         return recipeJson
 
         // could not infer which template to use
