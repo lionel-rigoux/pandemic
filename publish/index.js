@@ -8,7 +8,7 @@ const checkInstall = require('./check-install.js')
 module.exports = (args, options, logger) => {
 
   // check that pandoc and co are there
-  checkInstall()
+  checkInstall(logger)
 
   // check that the source file exists
   const source = path.join(process.cwd(), args.source)
