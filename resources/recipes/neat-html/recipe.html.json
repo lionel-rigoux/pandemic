@@ -1,0 +1,4 @@
+{
+  "template": "template.html",
+  "options": "--self-contained"
+}
