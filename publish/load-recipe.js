@@ -1,7 +1,7 @@
 const fs = require('fs')
-const fsTools = require('./fs-tools.js')
+const fsTools = require('../lib/fs-tools.js')
 const path = require('path')
-const resources = require('./resources-tools.js')
+const resources = require('../lib/resources-tools.js')
 const config = require('../config.js')
 
 const formatMap = {
@@ -47,7 +47,6 @@ function loadRecipe(recipe, format) {
   // best case scenario
   // ---------------------------------------------------------------------------
   if (recipe && format) {
-
     // resolve recipe paths
     let recipePath = path.join(config.RECIPES_PATH, recipe)
     let recipeFilePath = path.join(recipePath, `recipe.${format}.json`)
@@ -60,10 +59,9 @@ function loadRecipe(recipe, format) {
       recipeFile.format = format
       return recipeFile
 
-    // no recipe file, but the format can help guess the template
-    // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+      // no recipe file, but the format can help guess the template
+      // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     } else {
-
       // start with default
       let recipeJson = loadDefault(format)
 
@@ -81,53 +79,52 @@ function loadRecipe(recipe, format) {
         recipeFile.format = format
         return recipeJson
 
-      // could not infer which template to use
+        // could not infer which template to use
       } else {
-        throw new Error(`Could not find recipe.${format}.json and could not guess template.`)
+        throw new Error(
+          `Could not find recipe.${format}.json and could not guess template.`
+        )
       }
-
     } // end else exist(recipe.format.json)
   } // end if format & recipe
 
   // ---------------------------------------------------------------------------
   // recipe folder given but format has to be inferred
   // ---------------------------------------------------------------------------
-  if (recipe && ! format) {
-
+  if (recipe && !format) {
     // resolve path
     let recipePath = path.join(config.RECIPES_PATH, recipe)
 
     // check if no recipe file can be found, just in case
     // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    let recipeFiles = fsTools
-      .listFiles(recipePath, {
-        type: 'file',
-        filter: /^recipe\.(.*)\.json$/
-      })
+    let recipeFiles = fsTools.listFiles(recipePath, {
+      type: 'file',
+      filter: /^recipe\.(.*)\.json$/
+    })
 
     // found intended format, call again with proper argument
     if (recipeFiles.length === 1) {
       format = recipeFiles[0].match(/recipe\.(.*)\.json/)[1]
       return loadRecipe(recipe, format)
 
-    // multiple recipes available, too ambiguous
+      // multiple recipes available, too ambiguous
     } else if (recipeFiles.length > 1) {
-      throw new Error('Multiple formats found for this recipe. Please specify format.')
+      throw new Error(
+        'Multiple formats found for this recipe. Please specify format.'
+      )
     }
 
     // no recipe available, try to guess from folder content
     let candidates = []
     Object.keys(formatMap).forEach(function(fmt) {
-      fsTools
-        .listFiles(recipePath, {type: 'file'})
-        .forEach(file => {
-          if (formatMap[fmt].includes(path.extname(file))) {
-            candidates.push({
-              format: fmt,
-              template: file
-            })
-          }
-        })
+      fsTools.listFiles(recipePath, {type: 'file'}).forEach(file => {
+        if (formatMap[fmt].includes(path.extname(file))) {
+          candidates.push({
+            format: fmt,
+            template: file
+          })
+        }
+      })
     })
     if (candidates.length === 1) {
       // we have a unique winner
@@ -137,10 +134,11 @@ function loadRecipe(recipe, format) {
       return recipeJson
     } else {
       // too complicated, give up
-      throw new Error('Can not decide how to use this recipe! Please provide a recipe.<format>.json file.')
+      throw new Error(
+        'Can not decide how to use this recipe! Please provide a recipe.<format>.json file.'
+      )
     }
   } // end if recipe & !format
-
 }
 
 module.exports = loadRecipe

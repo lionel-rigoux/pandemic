@@ -5,14 +5,15 @@ const resources = require('../lib/resources-tools.js')
 const path = require('path')
 const help = require('../lib/help.js')
 const config = require('../config.js')
-const guessRecipe = require('../lib/guess-recipe')
+const loadRecipe = require('./load-recipe.js')
 
 const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
 
 function compileDocument(logger, options) {
   // load recipe
-  let recipe = guessRecipe(options.recipe, options.format)
+  let recipe = loadRecipe(options.recipe, options.format)
   logger.debug(recipe)
+
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
 
