@@ -28,7 +28,7 @@ function compileDocument(logger, options) {
 
   // include source and template directory in search path
   if (recipe.name !== 'default') {
-    pandocCmd += ` --resource-path=.:${path.join(recipesFolder, recipe.name)}/`
+    pandocCmd += ` --resource-path=.${path.delimiter}${path.join(recipesFolder, recipe.name)}`
   }
 
   // check for bibliography: front-matter > default bib > none
