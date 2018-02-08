@@ -30,11 +30,19 @@ pandemic help <command>
 
 ## Recipes
 
+You can try to install templates directly from user contributed repos.
+Pandemic will look for `recipe.<format>.json` instruction file, but will otherwise try to guess which files can serve as a template.
+
 ```
-# Conversion using pandoc recipes
+pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
+```
+
+You can then compile your manuscript using:
+
+```
 pandemic publish --to eisvogel
-pandemic publish --to tufte
 ```
+
 
 ## Mindset
 

@@ -17,15 +17,19 @@ function loadDefault(format) {
     '_defaults',
     `recipe.${format}.json`
   )
-  if (fs.existsSync(recipeFilePath)) {
-    return require(recipeFilePath)
-  } else {
-    // not even a defaut recipe!
-    return {
-      name: 'default',
-      format: format
-    }
+
+  let recipe = {
+    name: 'default',
+    format: format
   }
+
+  if (fs.existsSync(recipeFilePath)) {
+   recipe = Object.assign({},
+     recipe,
+     require(recipeFilePath)
+   )
+  }
+  return recipe
 }
 
 function loadRecipe(recipe, format) {
