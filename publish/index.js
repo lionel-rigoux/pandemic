@@ -3,19 +3,18 @@ const pandoc = require('./pandoc.js')
 const shell = require('shelljs')
 const path = require('path')
 const config = require('../config.js')
+const checkInstall = require('./check-install.js')
 
 module.exports = (args, options, logger) => {
-  const source = path.join(process.cwd(), args.source)
+
+  // check that pandoc and co are there
+  checkInstall()
 
   // check that the source file exists
+  const source = path.join(process.cwd(), args.source)
+
   if (!fs.existsSync(source)) {
     logger.error(`*** Could not find the source file ${args.source}.`)
-    process.exit(1)
-  }
-
-  // check that pandoc is there
-  if (!shell.which('pandoc')) {
-    logger.error('*** Please install pandoc to use this script')
     process.exit(1)
   }
 
