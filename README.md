@@ -31,7 +31,7 @@ pandemic help <command>
 ## Recipes
 
 You can try to install templates directly from user contributed repos.
-Pandemic will look for `recipe.<format>.json` instruction file, but will otherwise try to guess which files can serve as a template.
+Pandemic will look for `recipe.<format>.json` instruction file (see below), but will otherwise try to guess which files can serve as a template.
 
 ```
 pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
@@ -43,6 +43,21 @@ You can then compile your manuscript using:
 pandemic publish --to eisvogel
 ```
 
+### Recipe instruction
+
+You can override the default behavior of pandemic and explicitly defines how your template should be compiled.
+You just have to include a file `recipe.<format>.json`, eg.:
+
+`recipe.pdf.json`
+```
+{
+  "template": "path/to/template.tex",
+  "options": "-V aPandocVariable='value'",
+  "filters": [
+    "my-pandoc-filter",
+  ]
+}
+```
 
 ## Mindset
 
