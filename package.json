@@ -2,11 +2,11 @@
   "name": "pandemic",
   "author": "Lionel Rigoux <lionel.rigoux@sf.mpg.de>",
   "description": "Simplified academic writing using pandoc",
-  "version": "0.0.9",
-  "license" : "BSD-3-Clause",
+  "version": "0.1.0",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.sf.mpg.de/lrigoux/pandemic.git"
+    "url": "https://github.com/lionel-rigoux/pandemic.git"
   },
   "main": "index.js",
   "bin": {
@@ -16,7 +16,6 @@
     "caporal": "0.9.0",
     "fs-extra": "5.0.0",
     "mkdirp": "0.5.1",
-    "ncp": "2.0.0",
     "parse-github-url": "1.0.2",
     "shelljs": "0.8.1",
     "yaml-front-matter": "3.4.0"

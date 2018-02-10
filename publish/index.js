@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const pandoc = require('./pandoc.js')
 const shell = require('shelljs')
 const path = require('path')
@@ -11,31 +11,24 @@ module.exports = (args, options, logger) => {
   checkInstall(logger)
 
   // check that the source file exists
-  const source = path.join(process.cwd(), args.source)
+  const source = path.resolve(process.cwd(), args.source)
 
   if (!fs.existsSync(source)) {
     logger.error(`*** Could not find the source file ${args.source}.`)
     process.exit(1)
   }
 
-  // extract source directory and filename
-  let sourceFilename = path.basename(source)
-  let sourceDir = path.dirname(source)
-
-  // create target directory
-  let targetDir = path.join(sourceDir, config.TARGET_PATH)
-  fs.existsSync(targetDir) || fs.mkdirSync(targetDir)
-
-  // build target filename
-  var targetFilename = path.basename(source, '.md')
-
-  // ensure images and dependencies are found
-  process.chdir(sourceDir)
+  // create target directory if necessary
+  const targetDir = path.join(
+    path.dirname(source),
+    config.TARGET_PATH
+  )
+  fs.ensureDirSync(targetDir)
 
   try {
     pandoc(logger, {
-      source: sourceFilename,
-      target: targetFilename,
+      source: source,
+      targetDir: targetDir,
       recipe: options.to,
       format: options.format
     })

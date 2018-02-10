@@ -16,6 +16,10 @@ function compileDocument(logger, options) {
   logger.debug(recipe)
   logger.debug('')
 
+  const recipeFolder = recipe.name === '_defaults' ?
+    path.join(__dirname,'..','_defaults')
+    : path.join(config.RECIPES_PATH,recipe.name)
+
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
 
@@ -23,23 +27,23 @@ function compileDocument(logger, options) {
   pandocCmd += options.source
 
   // target file
-  pandocCmd +=
-    ' -o ' + path.join(config.TARGET_PATH, `${options.target}.${recipe.format}`)
+  const target = path.join(
+    options.targetDir,
+    path.basename(options.source,'.md') + '.' + recipe.format
+  )
+  pandocCmd += ` -o ${target}`
 
-  // include source and template directory in search path
-  pandocCmd += ' --resource-path=.'
-  if (recipe.name === 'default') {
-    pandocCmd += path.delimiter + path.join(__dirname,'..','_defaults')
-  } else {
-    pandocCmd += path.delimiter + path.join(config.RECIPES_PATH,recipe.name)
-  }
+  // include source directory in search path (allow relative path to images)
+  pandocCmd += ' --resource-path=.'+path.delimiter+path.dirname(options.source)
 
   // check for bibliography: front-matter > default bib > none
   let frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
-  if (!frontMatter.bibliography) {
+  if (frontMatter.bibliography) {
+    pandocCmd += ` --bibliography=${path.resolve(path.dirname(options.source),frontMatter.bibliography)}`
+  } else {
     // if no custom bib file specified, look for default if it's there
     if (fs.existsSync(`bibliography.bib`)) {
-      pandocCmd += ` --bibliography=bibliography.bib`
+      pandocCmd += ` --bibliography=${path.join(path.dirname(options.source),'bibliography.bib')}`
     }
   }
 
@@ -72,7 +76,8 @@ function compileDocument(logger, options) {
   logger.debug(`Calling: \n ${pandocCmd}\n`)
   logger.info('Processing...')
 
-  var status = shell.exec(pandocCmd)
+  shell.cd(recipeFolder)
+  let status = shell.exec(pandocCmd)
   if (status.code !== 0) {
     logger.error(status.stderr)
   }

@@ -1,7 +1,7 @@
 const resources = require('../lib/resources-tools.js')
 const path = require('path')
-const ghParser = require('parse-github-url');
-const execSync = require('child_process').execSync;
+const ghParser = require('parse-github-url')
+const shell = require('shelljs')
 
 module.exports = (args, options, logger) => {
 
@@ -10,7 +10,7 @@ module.exports = (args, options, logger) => {
     let templatesDir = resources.getDir(args.resource)
 
     // get template name
-    let name = options.as || ghParser(args.url).repo
+    let name = options.as || ghParser(args.url).name
 
     // check if template already exists
     if (resources.getTemplates(args.resource).includes(name)) {
@@ -19,14 +19,14 @@ module.exports = (args, options, logger) => {
     }
 
     // download template
-     try {
-       logger.info(`Install new ${args.resource} "${name}" from ${args.url}`)
-       execSync(`git clone ${args.url} ${name}`, { stdio: 'pipe', cwd: templatesDir });
-       logger.info(`Success!`)
-    } catch (e) {
-        logger.error(e);
+    logger.info(`Install new ${args.resource} "${name}" from ${args.url}`)
+       // execSync(`git clone ${args.url} ${name}`, { stdio: 'pipe', cwd: templatesDir });
+    shell.cd(templatesDir)
+    let status =  shell.exec(`git clone ${args.url} ${name}`)
+    if (status.code !== 0) {
+      logger.error(status.stderr)
+    } else {
+      logger.info('Done!')
     }
-
-
 
 }
