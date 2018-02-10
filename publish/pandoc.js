@@ -77,7 +77,7 @@ function compileDocument(logger, options) {
   logger.info('Processing...')
 
   shell.cd(recipeFolder)
-  var status = shell.exec(pandocCmd)
+  let status = shell.exec(pandocCmd)
   if (status.code !== 0) {
     logger.error(status.stderr)
   }
