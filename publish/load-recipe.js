@@ -19,7 +19,7 @@ function loadDefault(format) {
   )
 
   let recipe = {
-    name: 'default',
+    name: '_defaults',
     format: format
   }
 
