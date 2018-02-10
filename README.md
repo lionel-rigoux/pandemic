@@ -1,13 +1,21 @@
 # pandemic
-CLI tool for the smart scientist
+
+> Simplified academic writing using pandoc.
+
+Pandoc is a great tool for academic writing.
+Pandemic is a suite of command line tools based on pandoc to help you automatize
+ your writing pipeline so you can focus on the content:
+
+- start a project in an eyeblink with your favourite boilerplate
+- format and export your manuscript using a clean template
+- manage and share templates with other users
+
 
 ## Install
 
 ```
 npm install -g  pandemic
 ```
-
-## Usage
 
 ## Basics
 
@@ -26,9 +34,9 @@ pandemic help
 pandemic help <command>
 ```
 
-## Recipes
+## Recipes and scaffolding templates
 
-You can try to install templates directly from user contributed repos.
+You can try to install templates (for scaffolding or for pandoc publishing) directly from user contributed repos.
 Pandemic will look for `recipe.<format>.json` instruction file (see below), but will otherwise try to guess which files can serve as a template.
 
 ```
@@ -71,17 +79,6 @@ Agile:
 - easy to update with npm
 - customizable with homemade templates
 
-
-## Roadmap
-
-- [x] propose publishing templates
-- [x] include pandoc filters in the publishing pipeline
-- [x] possibility to add custom scaffolds and publishing recipes from git
-- [ ] extract the logic so pandemic could be used as a module and not only as a CLI.
-- [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
-- [ ] option to extract images
-- [ ] provide tools to process revisions and suggestions (diff display, selective merge, etc.), maybe, one day
-
 ## Requirements
 
 ### Node & npm
@@ -115,6 +112,16 @@ This is needed to compile documents to pdf. See [here](https://www.latex-project
 ### git
 
 Well, I hope you already have this one installed!
+
+## Roadmap
+
+- [x] propose publishing templates
+- [x] include pandoc filters in the publishing pipeline
+- [x] possibility to add custom scaffolds and publishing recipes from git
+- [ ] add possibility in recipes for pre and post publishing hooks
+- [ ] automated image management to facilitate publication (extraction, reformating, isolated legends, etc)
+- [ ] provide tools to process revisions and suggestions (diff display, selective merge, etc.)?
+- [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
 
 ## Copyright
 Lionel Rigoux, lionel.rigoux@gmail.com (C) 2018
