@@ -45,7 +45,9 @@ function compileDocument(logger, options) {
 
   // check for bibliography: front-matter > default bib > none
   let frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
-  if (!frontMatter.bibliography) {
+  if (frontMatter.bibliography) {
+    pandocCmd += ` --bibliography=${path.resolve(path.dirname(options.source),frontMatter.bibliography)}`
+  } else {
     // if no custom bib file specified, look for default if it's there
     if (fs.existsSync(`bibliography.bib`)) {
       pandocCmd += ` --bibliography=${path.join(path.dirname(options.source),'bibliography.bib')}`
