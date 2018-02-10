@@ -10,7 +10,7 @@ module.exports = (args, options, logger) => {
     let templatesDir = resources.getDir(args.resource)
 
     // get template name
-    let name = options.as || ghParser(args.url).repo
+    let name = options.as || ghParser(args.url).name
 
     // check if template already exists
     if (resources.getTemplates(args.resource).includes(name)) {
