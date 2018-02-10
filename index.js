@@ -8,6 +8,7 @@ const prog = require('caporal')
 const scaffold = require('./scaffold')
 const publish = require('./publish')
 const manage = require('./manage')
+const init = require('./init.js')
 
 /* Program description */
 /* ========================================================================== */
@@ -32,6 +33,9 @@ prog
   .action(publish)
 
 manage()
+
+// create resource foldesr if needed
+init(prog._logger)
 
 
 /* Put everithing to action */
