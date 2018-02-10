@@ -33,15 +33,8 @@ function compileDocument(logger, options) {
   )
   pandocCmd += ` -o ${target}`
 
-  // include source and template directory in search path
-  // pandocCmd += ' --resource-path=.'
-  // if (recipe.name === 'default') {
-  //   pandocCmd += path.delimiter + path.join(__dirname,'..','_defaults')
-  // } else {
-  //   pandocCmd += path.delimiter + path.join(config.RECIPES_PATH,recipe.name)
-  // }
+  // include source directory in search path (allow relative path to images)
   pandocCmd += ' --resource-path=.'+path.delimiter+path.dirname(options.source)
-
 
   // check for bibliography: front-matter > default bib > none
   let frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
