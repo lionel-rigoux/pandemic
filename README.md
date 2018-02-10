@@ -7,8 +7,6 @@ CLI tool for the smart scientist
 npm install -g  pandemic
 ```
 
-> Note that you need to have a proper ssh authorization to login to github.sf.mpg.de for this to work
-
 ## Usage
 
 ## Basics
