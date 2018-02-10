@@ -4,7 +4,7 @@ CLI tool for the smart scientist
 ## Install
 
 ```
-npm install -g  git+ssh://git@github.sf.mpg.de:lrigoux/pandemic.git
+npm install -g  pandemic
 ```
 
 > Note that you need to have a proper ssh authorization to login to github.sf.mpg.de for this to work
@@ -119,4 +119,4 @@ This is needed to compile documents to pdf. See [here](https://www.latex-project
 Well, I hope you already have this one installed!
 
 ## Copyright
-Dr. Lionel Rigoux, lionel.rigoux@sf.mpg.de (C) 2017 Max Planck Institute for Metabolism Research, Cologne
+Lionel Rigoux, lionel.rigoux@gmail.com (C) 2018
