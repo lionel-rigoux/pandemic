@@ -72,6 +72,12 @@ function compileDocument(logger, options) {
     })
   }
 
+  // engine
+  if (recipe.template && path.extname(recipe.template) ==='.xelatex') {
+    logger.info('using Xelatex engine')
+    pandocCmd += ' --pdf-engine=xelatex'
+  }
+  
   // start conversion
   logger.debug(`Calling: \n ${pandocCmd}\n`)
   logger.info('Processing...')

@@ -5,7 +5,7 @@ const resources = require('../lib/resources-tools.js')
 const config = require('../config.js')
 
 const formatMap = {
-  pdf: ['.tex', '.latex'],
+  pdf: ['.tex', '.latex','.xelatex'],
   docx: ['.doc', '.docx'],
   html: ['.html']
 }
