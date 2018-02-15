@@ -7,7 +7,7 @@ const config = require('../config.js')
 const path = require('path')
 const help = require('../lib/help.js')
 
-function _copyFilter(fileName) {
+function _copyFilter (fileName) {
   return path.basename(fileName) !== '.git'
 }
 

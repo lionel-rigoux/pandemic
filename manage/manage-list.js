@@ -1,7 +1,6 @@
-const help = require('../lib/help.js')
 const resources = require('../lib/resources-tools.js')
 
-function _getVersionText(resource, template) {
+function _getVersionText (resource, template) {
   let versionNb = resources.getTemplateVersionLag(resource, template)
   switch (versionNb) {
     case undefined: return 'no version available'

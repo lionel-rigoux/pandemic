@@ -37,7 +37,6 @@ manage()
 // create resource foldesr if needed
 init(prog._logger)
 
-
 /* Put everithing to action */
 /* ========================================================================== */
 prog.parse(process.argv)

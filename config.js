@@ -1,13 +1,13 @@
 const path = require('path')
 const os = require('os')
 
-const resources_path = path.join(os.homedir() ,'.pandemic')
-const recipes_path = path.join(resources_path,'recipes')
-const scaffolds_path = path.join(resources_path,'scaffolds')
+const resourcesPath = path.join(os.homedir(), '.pandemic')
+const recipesPath = path.join(resourcesPath, 'recipes')
+const scaffoldsPath = path.join(resourcesPath, 'scaffolds')
 
 module.exports = {
-  RESOURCES_PATH: resources_path,
-  RECIPES_PATH: recipes_path,
-  SCAFFOLDS_PATH: scaffolds_path,
+  RESOURCES_PATH: resourcesPath,
+  RECIPES_PATH: recipesPath,
+  SCAFFOLDS_PATH: scaffoldsPath,
   TARGET_PATH: 'public'
 }

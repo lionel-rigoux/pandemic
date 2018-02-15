@@ -1,24 +1,22 @@
 const fs = require('fs')
 const yamlFront = require('yaml-front-matter')
 const shell = require('shelljs')
-const resources = require('../lib/resources-tools.js')
 const path = require('path')
-const help = require('../lib/help.js')
 const config = require('../config.js')
 const loadRecipe = require('./load-recipe.js')
 
 const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
 
-function compileDocument(logger, options) {
+function compileDocument (logger, options) {
   // load recipe
   let recipe = loadRecipe(options.recipe, options.format)
   logger.debug('Using recipe: ')
   logger.debug(recipe)
   logger.debug('')
 
-  const recipeFolder = recipe.name === '_defaults' ?
-    path.join(__dirname,'..','_defaults')
-    : path.join(config.RECIPES_PATH,recipe.name)
+  const recipeFolder = recipe.name === '_defaults'
+    ? path.join(__dirname, '..', '_defaults')
+    : path.join(config.RECIPES_PATH, recipe.name)
 
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc '
@@ -29,21 +27,21 @@ function compileDocument(logger, options) {
   // target file
   const target = path.join(
     options.targetDir,
-    path.basename(options.source,'.md') + '.' + recipe.format
+    path.basename(options.source, '.md') + '.' + recipe.format
   )
   pandocCmd += ` -o ${target}`
 
   // include source directory in search path (allow relative path to images)
-  pandocCmd += ' --resource-path=.'+path.delimiter+path.dirname(options.source)
+  pandocCmd += ' --resource-path=.' + path.delimiter + path.dirname(options.source)
 
   // check for bibliography: front-matter > default bib > none
   let frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
   if (frontMatter.bibliography) {
-    pandocCmd += ` --bibliography=${path.resolve(path.dirname(options.source),frontMatter.bibliography)}`
+    pandocCmd += ` --bibliography=${path.resolve(path.dirname(options.source), frontMatter.bibliography)}`
   } else {
     // if no custom bib file specified, look for default if it's there
     if (fs.existsSync(`bibliography.bib`)) {
-      pandocCmd += ` --bibliography=${path.join(path.dirname(options.source),'bibliography.bib')}`
+      pandocCmd += ` --bibliography=${path.join(path.dirname(options.source), 'bibliography.bib')}`
     }
   }
 
@@ -73,11 +71,11 @@ function compileDocument(logger, options) {
   }
 
   // engine
-  if (recipe.template && path.extname(recipe.template) ==='.xelatex') {
+  if (recipe.template && path.extname(recipe.template) === '.xelatex') {
     logger.info('using Xelatex engine')
     pandocCmd += ' --pdf-engine=xelatex'
   }
-  
+
   // start conversion
   logger.debug(`Calling: \n ${pandocCmd}\n`)
   logger.info('Processing...')

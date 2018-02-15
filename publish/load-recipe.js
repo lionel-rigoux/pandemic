@@ -1,16 +1,15 @@
 const fs = require('fs')
 const fsTools = require('../lib/fs-tools.js')
 const path = require('path')
-const resources = require('../lib/resources-tools.js')
 const config = require('../config.js')
 
 const formatMap = {
-  pdf: ['.tex', '.latex','.xelatex'],
+  pdf: ['.tex', '.latex', '.xelatex'],
   docx: ['.doc', '.docx'],
   html: ['.html']
 }
 
-function loadDefault(format) {
+function loadDefault (format) {
   let recipeFilePath = path.join(
     __dirname,
     '..',
@@ -24,15 +23,15 @@ function loadDefault(format) {
   }
 
   if (fs.existsSync(recipeFilePath)) {
-   recipe = Object.assign({},
-     recipe,
-     require(recipeFilePath)
-   )
+    recipe = Object.assign({},
+      recipe,
+      require(recipeFilePath)
+    )
   }
   return recipe
 }
 
-function loadRecipe(recipe, format) {
+function loadRecipe (recipe, format) {
   // ---------------------------------------------------------------------------
   // no info provided. Fall back to default pdf
   // ---------------------------------------------------------------------------
@@ -60,7 +59,6 @@ function loadRecipe(recipe, format) {
     recipeJson.name = recipe
     recipeJson.format = format
 
-
     // if found, return recipe
     // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     if (fs.existsSync(recipeFilePath)) {
@@ -70,7 +68,6 @@ function loadRecipe(recipe, format) {
       // no recipe file, but the format can help guess the template
       // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     } else {
-
       // see if we can find a file that look like a template for the given format
       let candidates = fsTools
         .listFiles(recipePath, {type: 'file'})
@@ -120,7 +117,7 @@ function loadRecipe(recipe, format) {
 
     // no recipe available, try to guess from folder content
     let candidates = []
-    Object.keys(formatMap).forEach(function(fmt) {
+    Object.keys(formatMap).forEach(function (fmt) {
       fsTools.listFiles(recipePath, {type: 'file'}).forEach(file => {
         if (formatMap[fmt].includes(path.extname(file))) {
           candidates.push({

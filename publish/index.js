@@ -1,12 +1,10 @@
 const fs = require('fs-extra')
 const pandoc = require('./pandoc.js')
-const shell = require('shelljs')
 const path = require('path')
 const config = require('../config.js')
 const checkInstall = require('./check-install.js')
 
 module.exports = (args, options, logger) => {
-
   // check that pandoc and co are there
   checkInstall(logger)
 
