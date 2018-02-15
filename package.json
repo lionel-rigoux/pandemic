@@ -9,6 +9,11 @@
     "url": "https://github.com/lionel-rigoux/pandemic.git"
   },
   "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js,.vue src test",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "test": "echo \" Error: no test specified\" && exit 1"
+  },
   "bin": {
     "pandemic": "index.js"
   },
@@ -18,5 +23,19 @@
     "parse-github-url": "1.0.2",
     "shelljs": "0.8.1",
     "yaml-front-matter": "3.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.2.1",
+    "eslint": "4.17.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-config-standard": "11.0.0-beta.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-node": "6.0.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "eslint-plugin-promise": "3.6.0",
+    "eslint-plugin-standard": "3.0.1",
+    "eslint-plugin-vue": "4.2.2",
+    "prettier": "1.10.2"
   }
 }
