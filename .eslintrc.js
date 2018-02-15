@@ -8,7 +8,6 @@ module.exports = {
     browser: true,
   },
   extends: [
-    'standard',
-    'airbnb-base'
+    'standard'
   ]
 }

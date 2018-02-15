@@ -5,10 +5,10 @@ const shell = require('shelljs')
 module.exports = (args, options, logger) => {
   // TODO: allow branch and revision specific installs
 
-  let templatesDir = resources.getDir(args.resource)
+  const templatesDir = resources.getDir(args.resource)
 
   // get template name
-  let name = options.as || ghParser(args.url).name
+  const name = options.as || ghParser(args.url).name
 
   // check if template already exists
   if (resources.getTemplates(args.resource).includes(name)) {
@@ -20,7 +20,7 @@ module.exports = (args, options, logger) => {
   logger.info(`Install new ${args.resource} "${name}" from ${args.url}`)
   // execSync(`git clone ${args.url} ${name}`, { stdio: 'pipe', cwd: templatesDir });
   shell.cd(templatesDir)
-  let status = shell.exec(`git clone ${args.url} ${name}`)
+  const status = shell.exec(`git clone ${args.url} ${name}`)
   if (status.code !== 0) {
     logger.error(status.stderr)
   } else {

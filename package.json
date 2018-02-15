@@ -28,6 +28,7 @@
     "babel-eslint": "8.2.1",
     "eslint": "4.17.0",
     "eslint-config-airbnb-base": "12.1.0",
+    "eslint-config-airbnb-standard": "1.6.6",
     "eslint-config-standard": "11.0.0-beta.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-node": "6.0.0",

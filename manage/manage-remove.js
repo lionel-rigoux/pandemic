@@ -4,7 +4,7 @@ const fse = require('fs-extra')
 const path = require('path')
 
 module.exports = (args, options, logger) => {
-  let templatesDir = resources.getDir(args.resource)
+  const templatesDir = resources.getDir(args.resource)
 
   // check if template exists
   if (!resources.getTemplates(args.resource).includes(args.name)) {
@@ -14,7 +14,7 @@ module.exports = (args, options, logger) => {
   }
 
   // delete recipeFolder
-  let rFolder = path.join(templatesDir, args.name)
+  const rFolder = path.join(templatesDir, args.name)
   logger.info(`Uninstalling ${args.resource} "${args.name}"...`)
   logger.debug(`Deleting ${rFolder}`)
   fse.removeSync(rFolder)

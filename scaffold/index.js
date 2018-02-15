@@ -28,7 +28,7 @@ module.exports = (args, options, logger) => {
 
   // start copy
   logger.info('Copying files...')
-  var copyOptions = {
+  const copyOptions = {
     overwrite: override,
     errorOnExist: true,
     filter: _copyFilter

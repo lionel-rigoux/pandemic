@@ -1,7 +1,7 @@
 const resources = require('../lib/resources-tools.js')
 
 function _getVersionText (resource, template) {
-  let versionNb = resources.getTemplateVersionLag(resource, template)
+  const versionNb = resources.getTemplateVersionLag(resource, template)
   switch (versionNb) {
     case undefined: return 'no version available'
     case 0: return 'up to date'
@@ -10,13 +10,13 @@ function _getVersionText (resource, template) {
 }
 
 module.exports = (args, options, logger) => {
-  let templates = resources.getTemplates(args.resource)
+  const templates = resources.getTemplates(args.resource)
   if (templates.length) {
     logger.info(`Installed ${args.resource}:`)
-    templates.forEach(template => {
-      let formats =
+    templates.forEach((template) => {
+      const formats =
         args.resource === 'recipes' ? resources.getRecipeFormats(template) : []
-      let version = _getVersionText(args.resource, template)
+      const version = _getVersionText(args.resource, template)
       logger.info(` - ${template}\t${formats.join(' ,')}\t ${version}`)
     })
     logger.info('\n')

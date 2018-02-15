@@ -10,7 +10,7 @@ const formatMap = {
 }
 
 function loadDefault (format) {
-  let recipeFilePath = path.join(
+  const recipeFilePath = path.join(
     __dirname,
     '..',
     '_defaults',
@@ -19,11 +19,12 @@ function loadDefault (format) {
 
   let recipe = {
     name: '_defaults',
-    format: format
+    format
   }
 
   if (fs.existsSync(recipeFilePath)) {
-    recipe = Object.assign({},
+    recipe = Object.assign(
+      {},
       recipe,
       require(recipeFilePath)
     )
@@ -51,42 +52,38 @@ function loadRecipe (recipe, format) {
   // ---------------------------------------------------------------------------
   if (recipe && format) {
     // resolve recipe paths
-    let recipePath = path.join(config.RECIPES_PATH, recipe)
-    let recipeFilePath = path.join(recipePath, `recipe.${format}.json`)
+    const recipePath = path.join(config.RECIPES_PATH, recipe)
+    const recipeFilePath = path.join(recipePath, `recipe.${format}.json`)
 
     // start with default
-    let recipeJson = loadDefault(format)
+    const recipeJson = loadDefault(format)
     recipeJson.name = recipe
     recipeJson.format = format
 
     // if found, return recipe
     // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     if (fs.existsSync(recipeFilePath)) {
-      let recipeFile = require(recipeFilePath)
+      const recipeFile = require(recipeFilePath)
       return Object.assign({}, recipeJson, recipeFile)
 
       // no recipe file, but the format can help guess the template
       // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    } else {
-      // see if we can find a file that look like a template for the given format
-      let candidates = fsTools
-        .listFiles(recipePath, {type: 'file'})
-        .filter(file => {
-          return formatMap[format].includes(path.extname(file))
-        })
+    }
+    // see if we can find a file that look like a template for the given format
+    const candidates = fsTools
+      .listFiles(recipePath, { type: 'file' })
+      .filter(file => formatMap[format].includes(path.extname(file)))
 
       // if no ambiguity, use candidate as template
-      if (candidates.length === 1) {
-        recipeJson.template = candidates[0]
-        return recipeJson
+    if (candidates.length === 1) {
+      recipeJson.template = candidates[0]
+      return recipeJson
 
-        // could not infer which template to use
-      } else {
-        throw new Error(
-          `Could not find recipe.${format}.json and could not guess template.`
-        )
-      }
-    } // end else exist(recipe.format.json)
+      // could not infer which template to use
+    }
+    throw new Error(`Could not find recipe.${format}.json and could not guess template.`)
+
+    // end else exist(recipe.format.json)
   } // end if format & recipe
 
   // ---------------------------------------------------------------------------
@@ -94,11 +91,11 @@ function loadRecipe (recipe, format) {
   // ---------------------------------------------------------------------------
   if (recipe && !format) {
     // resolve path
-    let recipePath = path.join(config.RECIPES_PATH, recipe)
+    const recipePath = path.join(config.RECIPES_PATH, recipe)
 
     // check if no recipe file can be found, just in case
     // '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    let recipeFiles = fsTools.listFiles(recipePath, {
+    const recipeFiles = fsTools.listFiles(recipePath, {
       type: 'file',
       filter: /^recipe\.(.*)\.json$/
     })
@@ -110,15 +107,13 @@ function loadRecipe (recipe, format) {
 
       // multiple recipes available, too ambiguous
     } else if (recipeFiles.length > 1) {
-      throw new Error(
-        'Multiple formats found for this recipe. Please specify format.'
-      )
+      throw new Error('Multiple formats found for this recipe. Please specify format.')
     }
 
     // no recipe available, try to guess from folder content
-    let candidates = []
-    Object.keys(formatMap).forEach(function (fmt) {
-      fsTools.listFiles(recipePath, {type: 'file'}).forEach(file => {
+    const candidates = []
+    Object.keys(formatMap).forEach((fmt) => {
+      fsTools.listFiles(recipePath, { type: 'file' }).forEach((file) => {
         if (formatMap[fmt].includes(path.extname(file))) {
           candidates.push({
             format: fmt,
@@ -129,16 +124,13 @@ function loadRecipe (recipe, format) {
     })
     if (candidates.length === 1) {
       // we have a unique winner
-      let defRecipe = loadDefault(candidates[0].format)
-      let recipeJson = Object.assign({}, defRecipe, candidates[0])
+      const defRecipe = loadDefault(candidates[0].format)
+      const recipeJson = Object.assign({}, defRecipe, candidates[0])
       recipeJson.name = recipe
       return recipeJson
-    } else {
-      // too complicated, give up
-      throw new Error(
-        'Can not decide how to use this recipe! Please provide a recipe.<format>.json file.'
-      )
     }
+    // too complicated, give up
+    throw new Error('Can not decide how to use this recipe! Please provide a recipe.<format>.json file.')
   } // end if recipe & !format
 }
 

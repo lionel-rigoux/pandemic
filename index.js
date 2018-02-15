@@ -12,7 +12,8 @@ const init = require('./init.js')
 
 /* Program description */
 /* ========================================================================== */
-const version = require('./package.json').version
+const { version } = require('./package.json')
+
 prog
   .version(version)
   .description('Academic writing without stress.')

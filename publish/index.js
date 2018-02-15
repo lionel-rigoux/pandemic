@@ -25,8 +25,8 @@ module.exports = (args, options, logger) => {
 
   try {
     pandoc(logger, {
-      source: source,
-      targetDir: targetDir,
+      source,
+      targetDir,
       recipe: options.to,
       format: options.format
     })
