@@ -1,48 +1,46 @@
-const fs = require('fs')
-const yamlFront = require('yaml-front-matter')
-const shell = require('shelljs')
-const path = require('path')
-const config = require('../config.js')
-const loadRecipe = require('./load-recipe.js')
+const fs = require('fs');
+const yamlFront = require('yaml-front-matter');
+const shell = require('shelljs');
+const path = require('path');
+const config = require('../config.js');
+const loadRecipe = require('./load-recipe.js');
 
-const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes')
+const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes');
 
 function compileDocument (logger, options) {
   // load recipe
-  const recipe = loadRecipe(options.recipe, options.format)
-  logger.debug('Using recipe: ')
-  logger.debug(recipe)
-  logger.debug('')
+  const recipe = loadRecipe(options);
+  logger.debug('Using recipe: ');
+  logger.debug(recipe);
+  logger.debug('');
 
   const recipeFolder = recipe.name === '_defaults'
     ? path.join(__dirname, '..', '_defaults')
-    : path.join(config.RECIPES_PATH, recipe.name)
+    : path.join(config.RECIPES_PATH, recipe.name);
 
   /* PANDOC OPTIONS */
-  let pandocCmd = 'pandoc '
+  let pandocCmd = 'pandoc ';
 
   // source file
-  pandocCmd += options.source
+  pandocCmd += options.source;
 
   // target file
   const target = path.join(
     options.targetDir,
     `${path.basename(options.source, '.md')}.${recipe.format}`
-  )
-  pandocCmd += ` -o ${target}`
+  );
+  pandocCmd += ` -o ${target}`;
 
   // include source directory in search path (allow relative path to images)
-  pandocCmd += ` --resource-path=.${path.delimiter}${path.dirname(options.source)}`
+  pandocCmd += ` --resource-path=.${path.delimiter}${path.dirname(options.source)}`;
 
   // check for bibliography: front-matter > default bib > none
-  const frontMatter = yamlFront.loadFront(fs.readFileSync(options.source))
+  const frontMatter = yamlFront.loadFront(fs.readFileSync(options.source));
   if (frontMatter.bibliography) {
-    pandocCmd += ` --bibliography=${path.resolve(path.dirname(options.source), frontMatter.bibliography)}`
-  } else {
+    pandocCmd += ` --bibliography=${path.resolve(path.dirname(options.source), frontMatter.bibliography)}`;
+  } else if (fs.existsSync('bibliography.bib')) {
     // if no custom bib file specified, look for default if it's there
-    if (fs.existsSync('bibliography.bib')) {
-      pandocCmd += ` --bibliography=${path.join(path.dirname(options.source), 'bibliography.bib')}`
-    }
+    pandocCmd += ` --bibliography=${path.join(path.dirname(options.source), 'bibliography.bib')}`;
   }
 
   // use template if needed
@@ -51,41 +49,41 @@ function compileDocument (logger, options) {
       recipesFolder,
       recipe.name,
       recipe.template
-    )}`
+    )}`;
   }
 
   // add pandoc options
   if (recipe.options) {
     if (typeof recipe.options === 'string') {
-      pandocCmd += ` ${recipe.options}`
+      pandocCmd += ` ${recipe.options}`;
     } else {
-      pandocCmd += ` ${recipe.options.join(' ')}`
+      pandocCmd += ` ${recipe.options.join(' ')}`;
     }
   }
 
   // use filters
   if (recipe.filters) {
     recipe.filters.forEach((filter) => {
-      pandocCmd += ` --filter=${filter}`
-    })
+      pandocCmd += ` --filter=${filter}`;
+    });
   }
 
   // engine
   if (recipe.template && path.extname(recipe.template) === '.xelatex') {
-    logger.info('using Xelatex engine')
-    pandocCmd += ' --pdf-engine=xelatex'
+    logger.info('using Xelatex engine');
+    pandocCmd += ' --pdf-engine=xelatex';
   }
 
   // start conversion
-  logger.debug(`Calling: \n ${pandocCmd}\n`)
-  logger.info('Processing...')
+  logger.debug(`Calling: \n ${pandocCmd}\n`);
+  logger.info('Processing...');
 
-  shell.cd(recipeFolder)
-  const status = shell.exec(pandocCmd)
+  shell.cd(recipeFolder);
+  const status = shell.exec(pandocCmd);
   if (status.code !== 0) {
-    logger.error(status.stderr)
+    logger.error(status.stderr);
   }
-  logger.info('Done!')
+  logger.info('Done!');
 }
 
-module.exports = compileDocument
+module.exports = compileDocument;
