@@ -93,7 +93,7 @@ source ~/.bashrc
 nvm install v8.9.4
 ```
 
-### pandoc
+### pandoc ^2.1.1
 
 Go to the [Pandoc website](https://github.com/jgm/pandoc/releases), download the installer for your system, run the installer.
 
