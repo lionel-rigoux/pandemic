@@ -1,25 +1,25 @@
 # pandemic
 
-> Simplified academic writing using pandoc.
+> **Simplified academic writing using Pandoc.**
 
 Pandoc is a great tool for academic writing.
-Pandemic is a suite of command line tools based on pandoc to help you automatize
+Pandemic is a suite of command line tools based on Pandoc to help you automatize
  your writing pipeline so you can focus on the content:
 
-- start a project in an eyeblink with your favourite boilerplate
+- start a project in an eye-blink with your favorite boilerplate
 - format and export your manuscript using a clean template
 - manage and share templates with other users
 
 
 ## Install
 
-```
+```bash
 npm install -g  pandemic
 ```
 
 ## Basics
 
-```
+```bash
 # Find a cosy place
 cd my-new-project
 
@@ -34,35 +34,153 @@ pandemic help
 pandemic help <command>
 ```
 
-## Recipes and scaffolding templates
+## Publishing Markdown documents using Pandoc
 
-You can try to install templates (for scaffolding or for pandoc publishing) directly from user contributed repos.
+Markdown is a simple and efficient format to write academic documents. It can easily handle citations, images, equations, and cross referencing. Moreover, as a pure text format, it plays well with versioning tools and is inherently cross-platform.
+
+```bash
+# Create an example of markdown document
+pandemic scaffold manuscript
+
+# Convert to publication ready pdf
+pandemic publish
+```
+
+> You can export to Word format using the option `--format docx`
+
+### Bibliography
+
+By default, Pandemic will look for a `bibliography.bib` file in the same directory as the compiled document to parse citations. If you need to use a custom libarary, specify the (relative) path to the .bib file in the YAML header of your markdown document.
+
+### Use publishing recipes
+
+The best part with Markdown is that, using Pandoc, your documents can be directly exported to .pdf or .docx following specific formatting guidelines (eg. citation style, line spacing) specified by template. Need to reformat a manuscript for a different journal? Just select another template!
+
+Pandemic is there to manage all you exporting templates and facilitate the configuration of Pandoc options and filters so you can focus on the content and forget about the formatting pipeline.
+
+You can install publishing recipes directly from user contributed repos.
 Pandemic will look for `recipe.<format>.json` instruction file (see below), but will otherwise try to guess which files can serve as a template.
 
-```
+For example, install a new recipe:
+
+```bash
 pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
 ```
 
-You can then compile your manuscript using:
+You can then compile your manuscript using the new template:
 
-```
+```bash
 pandemic publish --to eisvogel
 ```
 
 ### Recipe instruction
 
-You can override the default behavior of pandemic and explicitly defines how your template should be compiled.
-You just have to include a file `recipe.<format>.json`, eg.:
+By default, Pandemic will use a standard set of filters and Pandoc options that should cover the usual needs for manuscript publication (citations, etc.). You can display the defaults using the option `--verbose` when publishing.
 
-`recipe.pdf.json`
-```
+You can override the default behavior of pandemic and explicitly defines how your template should be compiled. You just have to include a file `recipe.<format>.json` in your recipe folder defining the options, variable, and filters to pass to Pandoc. For example, if you want to use a custom title page with the Eisvogel template:
+
+`~/.pandemic/recipe/eisvogel/recipe.pdf.json`
+```json
 {
-  "template": "path/to/template.tex",
-  "options": "-V aPandocVariable='value'",
-  "filters": [
-    "my-pandoc-filter",
+  "options":  [
+        "-V titlepage=true",
+        "-V titlepage-color='D8DE2C'"
   ]
 }
+```
+
+The `recipe.<format>.json` file can have the following entries. Missing values will be automatically replaced by the default.
+
+- *template*
+  ```json
+  {
+    "template": "./path/to/entry-point.tex",
+  }
+  ```
+
+  Relative path to the template file (as in `pandoc --template='path to template'`). As Pandemic will load the .json file corresponding to the `--format` option, this field is useful is the same recipe can be used to publish in different formats.
+
+- *options*
+  ```json
+  {
+    "options": [
+      "-V pandocVariable=pandocValue",
+      "--pandocOption"
+      ]
+  }
+  ```
+
+  String or array of string to pass as options to Pandoc.
+
+- *filters*
+  ```json
+  {
+    "filters": [
+      "pandoc-eqnos",
+      "myCustomFilter"
+      ]
+  }
+  ```
+
+  Array of filter names to pass to Pandoc (see `pandoc --filter=<filterName>`). Note that this entry will override the defaults and you will have to explicitly list pandoc-xnos filters if you need them.
+
+### Managing recipes
+
+List installed recipes:
+
+```bash
+pandemic resource list recipes
+```
+
+Update recipe from remote repo:
+
+```bash
+pandemic resource update recipe <recipe>
+```
+
+Delete existing recipe from local storage:
+
+```bash
+pandemic resource remove recipe <recipe>
+```
+
+## Scaffolding
+
+Scaffolding allows you to create a tree of folders and files that can serve as a starting point for a new project. Scaffolding is a good way to enforce structural consistency across projects. It can also help you save a lot of time by avoiding repeated copy/pasting from previous projects in the initial setup.
+
+```bash
+pandemic scaffold <template>
+```
+
+### Managing scaffolds
+
+The arborescence of folders and boilerplate files created by scaffolding relies on "scaffolds" (scaffolding templates) installed through pandemic. Scaffolding will simply copy all the files from the template in your current directory.
+
+To see the available scaffolds:
+
+```bash
+pandemic resource list scaffolds
+```
+
+Using shared scaffolds is a good way to harmonize the structure of the projects in your team.
+You can install new scaffolds by cloning on your local computer a git repository that contains the scaffolding template:
+
+```bash
+pandemic resource install scaffold https://github.com/user/template-repo.git
+```
+
+> By default, the new scaffold will be stored as <template-repo>. You can override this behavior and specify a custom name using `--as <template-name>`
+
+Note that if the remote repo is updated, you can update your local copy of the scaffold using:
+
+```bash
+pandemic resource update scaffold <template>
+```
+
+You can also remove an unused scaffold:
+
+```bash
+pandemic resource remove scaffold <template>
 ```
 
 ## Mindset
