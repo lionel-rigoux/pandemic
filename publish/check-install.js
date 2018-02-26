@@ -14,5 +14,5 @@ module.exports = (logger) => {
     'pandoc-eqnos',
     'pandoc-tablenos',
     'pandoc-citeproc'
-  ].forEach(bin => _checkInstall(logger,bin))
-}
+  ].forEach(bin => checkInstall(logger, bin));
+};
