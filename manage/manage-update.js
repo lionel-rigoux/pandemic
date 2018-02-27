@@ -19,6 +19,7 @@ module.exports = (args, options, logger) => {
   const status = shell.exec('git pull');
   if (status.code !== 0) {
     logger.error(status.stderr);
+    process.exit(1);
   } else {
     logger.info('Done!');
   }
