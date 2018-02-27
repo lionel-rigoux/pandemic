@@ -222,6 +222,7 @@ You will also need to install the following pandoc filters
 - [pandoc-fignos](https://github.com/tomduck/pandoc-fignos)
 - [pandoc-eqnos](https://github.com/tomduck/pandoc-eqnos)
 - [pandoc-tablenos](https://github.com/tomduck/pandoc-tablenos)
+- [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc)
 
 ### LaTeX
 
