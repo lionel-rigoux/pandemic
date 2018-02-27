@@ -4,6 +4,7 @@
   "description": "Simplified academic writing using pandoc",
   "version": "0.1.10",
   "license": "BSD-3-Clause",
+  "keywords": ["pandoc","writing","academic"],
   "repository": {
     "type": "git",
     "url": "https://github.com/lionel-rigoux/pandemic.git"
