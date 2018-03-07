@@ -3,6 +3,7 @@ const pandoc = require('./pandoc.js');
 const path = require('path');
 const config = require('../config.js');
 const checkInstall = require('./check-install.js');
+const yamlFront = require('yaml-front-matter');
 
 module.exports = (args, options, logger) => {
   // check that pandoc and co are there
@@ -23,12 +24,17 @@ module.exports = (args, options, logger) => {
   );
   fs.ensureDirSync(targetDir);
 
+  // if no options provided, check yaml header
+  const frontMatter = yamlFront.loadFront(fs.readFileSync(args.source));
+  const recipe = options.to || frontMatter.pandemic.recipe;
+  const format = options.format || frontMatter.pandemic.format;
+
   try {
     pandoc(logger, {
       source,
       targetDir,
-      recipe: options.to,
-      format: options.format
+      recipe,
+      format
     });
   } catch (err) {
     logger.error(err.message);
