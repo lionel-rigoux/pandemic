@@ -82,6 +82,7 @@ function compileDocument (logger, options) {
   const status = shell.exec(pandocCmd);
   if (status.code !== 0) {
     logger.error(status.stderr);
+    process.exit(1);
   }
   logger.info('Done!');
 }

@@ -23,6 +23,7 @@ module.exports = (args, options, logger) => {
   const status = shell.exec(`git clone ${args.url} ${name}`);
   if (status.code !== 0) {
     logger.error(status.stderr);
+    process.exit(1);
   } else {
     logger.info('Done!');
   }

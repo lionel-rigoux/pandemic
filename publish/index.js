@@ -38,5 +38,6 @@ module.exports = (args, options, logger) => {
     });
   } catch (err) {
     logger.error(err.message);
+    process.exit(1);
   }
 };
