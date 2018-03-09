@@ -73,6 +73,13 @@ You can then compile your manuscript using the new template:
 pandemic publish --to eisvogel
 ```
 
+Note that you can also specify the recipe and format directly in the YAML frontmatter of your markdown document:
+
+```YAML
+pandemic:
+  recipe: eisvogel
+```
+
 ### Recipe instruction
 
 By default, Pandemic will use a standard set of filters and Pandoc options that should cover the usual needs for manuscript publication (citations, etc.). You can display the defaults using the option `--verbose` when publishing.
@@ -208,7 +215,7 @@ The best way to do this is to use [nvm](https://github.com/creationix/nvm).
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 source ~/.bashrc
-nvm install v8.9.4
+nvm install --lts
 ```
 
 ### pandoc ^2.1.1
@@ -216,8 +223,20 @@ nvm install v8.9.4
 Go to the [Pandoc website](https://github.com/jgm/pandoc/releases), download the installer for your system, run the installer.
 
 > Future versions of Pandemic will include pandoc binaries to avoid compatibility issues.
+### pandoc filters
 
 You will also need to install the following pandoc filters
+
+**TL;DR:**
+
+```
+sudo easy_install -U setuptools
+sudo easy_install pip
+sudo pip install pandoc-eqnos
+sudo pip install pandoc-fignos
+sudo pip install pandoc-tablenos
+sudo pip install pandoc-citeproc
+```
 
 - [pandoc-fignos](https://github.com/tomduck/pandoc-fignos)
 - [pandoc-eqnos](https://github.com/tomduck/pandoc-eqnos)

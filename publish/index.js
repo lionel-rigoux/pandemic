@@ -26,8 +26,8 @@ module.exports = (args, options, logger) => {
 
   // if no options provided, check yaml header
   const frontMatter = yamlFront.loadFront(fs.readFileSync(args.source));
-  const recipe = options.to || frontMatter.pandemic.recipe;
-  const format = options.format || frontMatter.pandemic.format;
+  const recipe = options.to || (frontMatter.pandemic || {}).recipe;
+  const format = options.format || (frontMatter.pandemic || {}).format;
 
   try {
     pandoc(logger, {
