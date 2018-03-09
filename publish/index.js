@@ -4,6 +4,7 @@ const path = require('path');
 const config = require('../config.js');
 const checkInstall = require('./check-install.js');
 const yamlFront = require('yaml-front-matter');
+const loadRecipe = require('./load-recipe.js');
 
 module.exports = (args, options, logger) => {
   // check that pandoc and co are there
@@ -26,16 +27,24 @@ module.exports = (args, options, logger) => {
 
   // if no options provided, check yaml header
   const frontMatter = yamlFront.loadFront(fs.readFileSync(args.source));
-  const recipe = options.to || (frontMatter.pandemic || {}).recipe;
-  const format = options.format || (frontMatter.pandemic || {}).format;
+
+  // load recipe
+  const recipe = loadRecipe({
+    recipe: options.to || (frontMatter.pandemic || {}).recipe,
+    format: options.format || (frontMatter.pandemic || {}).format
+  });
+  logger.debug('Using recipe: ');
+  logger.debug(recipe);
+  logger.debug('');
 
   try {
-    pandoc(logger, {
+    logger.info('Processing...');
+    pandoc({
       source,
       targetDir,
-      recipe,
-      format
+      recipe
     });
+    logger.info('Done!');
   } catch (err) {
     logger.error(err.message);
     process.exit(1);
