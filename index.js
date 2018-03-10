@@ -9,6 +9,7 @@ const scaffold = require('./scaffold');
 const publish = require('./publish');
 const manage = require('./manage');
 const init = require('./init.js');
+const checkInstall = require('./lib/check-install.js');
 
 /* Program description */
 /* ========================================================================== */
@@ -35,6 +36,8 @@ prog
 
 manage();
 
+// check that pandoc and co are there
+checkInstall(prog.logger());
 // create resource foldesr if needed
 init(prog.logger());
 

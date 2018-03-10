@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const yamlFront = require('yaml-front-matter');
 const shell = require('shelljs');
 const path = require('path');
@@ -6,7 +6,14 @@ const config = require('../config.js');
 
 const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes');
 
-function compileDocument ({ source, targetDir, recipe }) {
+function compileDocument ({ source, recipe }) {
+  // create target directory if necessary
+  const targetDir = path.join(
+    path.dirname(source),
+    config.TARGET_PATH
+  );
+  fs.ensureDirSync(targetDir);
+
   const recipeFolder = recipe.name === '_defaults'
     ? path.join(__dirname, '..', '_defaults')
     : path.join(config.RECIPES_PATH, recipe.name);
