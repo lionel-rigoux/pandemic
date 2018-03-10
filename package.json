@@ -2,7 +2,7 @@
   "name": "pandemic",
   "author": "Lionel Rigoux <lionel.rigoux@gmail.com>",
   "description": "Simplified academic writing using pandoc",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "license": "BSD-3-Clause",
   "keywords": [
     "pandoc",
