@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const pandoc = require('./pandoc.js');
 const path = require('path');
-const loadRecipe = require('./load-recipe.js');
+const loadInstructions = require('./load-instructions.js');
 const getYamlOptions = require('../lib/getYamlOptions.js');
 
 module.exports = (args, options, logger) => {
@@ -17,19 +17,19 @@ module.exports = (args, options, logger) => {
   const yamlOptions = getYamlOptions(args.source);
 
   // load recipe
-  const recipe = loadRecipe({
+  const instructions = loadInstructions({
     recipe: options.to || yamlOptions.recipe,
     format: options.format || yamlOptions.format
   });
   logger.debug('Using recipe: ');
-  logger.debug(recipe);
+  logger.debug(instructions);
   logger.debug('');
 
   try {
     logger.info('Processing...');
     pandoc({
       source,
-      recipe
+      instructions
     });
     logger.info('Done!');
   } catch (err) {

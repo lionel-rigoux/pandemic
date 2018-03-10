@@ -32,7 +32,7 @@ function loadDefault (format) {
   return recipe;
 }
 
-function loadRecipe ({ recipe, format }) {
+function loadInstructions ({ recipe, format }) {
   // ---------------------------------------------------------------------------
   // no info provided. Fall back to default pdf
   // ---------------------------------------------------------------------------
@@ -102,7 +102,7 @@ function loadRecipe ({ recipe, format }) {
     // found intended format, call again with proper argument
     if (recipeFiles.length === 1) {
       const [, recipeFormat] = recipeFiles[0].match(/recipe\.(.*)\.json/);
-      return loadRecipe(recipe, recipeFormat);
+      return loadInstructions(recipe, recipeFormat);
 
       // multiple recipes available, too ambiguous
     } else if (recipeFiles.length > 1) {
@@ -135,4 +135,4 @@ function loadRecipe ({ recipe, format }) {
   return undefined;
 }
 
-module.exports = loadRecipe;
+module.exports = loadInstructions;

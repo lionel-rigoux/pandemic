@@ -6,7 +6,7 @@ const config = require('../config.js');
 
 const recipesFolder = path.join(config.RESOURCES_PATH, 'recipes');
 
-function compileDocument ({ source, recipe }) {
+function compileDocument ({ source, instructions }) {
   // create target directory if necessary
   const targetDir = path.join(
     path.dirname(source),
@@ -14,9 +14,9 @@ function compileDocument ({ source, recipe }) {
   );
   fs.ensureDirSync(targetDir);
 
-  const recipeFolder = recipe.name === '_defaults'
+  const recipeFolder = instructions.name === '_defaults'
     ? path.join(__dirname, '..', '_defaults')
-    : path.join(config.RECIPES_PATH, recipe.name);
+    : path.join(config.RECIPES_PATH, instructions.name);
 
   /* PANDOC OPTIONS */
   let pandocCmd = 'pandoc ';
@@ -27,7 +27,7 @@ function compileDocument ({ source, recipe }) {
   // target file
   const target = path.join(
     targetDir,
-    `${path.basename(source, '.md')}.${recipe.format}`
+    `${path.basename(source, '.md')}.${instructions.format}`
   );
   pandocCmd += ` -o ${target}`;
 
@@ -44,32 +44,32 @@ function compileDocument ({ source, recipe }) {
   }
 
   // use template if needed
-  if (recipe.template) {
+  if (instructions.template) {
     pandocCmd += ` --template=${path.join(
       recipesFolder,
-      recipe.name,
-      recipe.template
+      instructions.name,
+      instructions.template
     )}`;
   }
 
   // add pandoc options
-  if (recipe.options) {
-    if (typeof recipe.options === 'string') {
-      pandocCmd += ` ${recipe.options}`;
+  if (instructions.options) {
+    if (typeof instructions.options === 'string') {
+      pandocCmd += ` ${instructions.options}`;
     } else {
-      pandocCmd += ` ${recipe.options.join(' ')}`;
+      pandocCmd += ` ${instructions.options.join(' ')}`;
     }
   }
 
   // use filters
-  if (recipe.filters) {
-    recipe.filters.forEach((filter) => {
+  if (instructions.filters) {
+    instructions.filters.forEach((filter) => {
       pandocCmd += ` --filter=${filter}`;
     });
   }
 
   // engine
-  if (recipe.template && path.extname(recipe.template) === '.xelatex') {
+  if (instructions.template && path.extname(instructions.template) === '.xelatex') {
     pandocCmd += ' --pdf-engine=xelatex';
   }
 
