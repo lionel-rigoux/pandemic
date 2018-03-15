@@ -9,5 +9,5 @@ module.exports = {
   RESOURCES_PATH: resourcesPath,
   RECIPES_PATH: recipesPath,
   SCAFFOLDS_PATH: scaffoldsPath,
-  TARGET_PATH: 'public'
+  TARGET_PATH: '_public'
 };
