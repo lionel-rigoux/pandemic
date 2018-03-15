@@ -1,6 +1,6 @@
 # pandemic
 
-> **Simplified academic writing using Pandoc.**
+**Simplified academic writing using Pandoc.**
 
 Pandoc is a great tool for academic writing.
 Pandemic is a suite of command line tools based on Pandoc to help you automatize
