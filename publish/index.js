@@ -6,16 +6,17 @@ module.exports = (args, options, logger) => {
   const source = path.resolve(process.cwd(), args.source);
 
   logger.info('Processing...');
-  try {
-    publish({
-      source,
-      recipe: options.to,
-      format: options.format
+  publish({
+    source,
+    recipe: options.to,
+    format: options.format
+  })
+    .catch((err) => {
+      logger.error(`*** Compilation failed:\n ${err}`);
+      process.exit(1);
+    })
+    .then((result) => {
+      logger.info('Done!');
+      process.exit(0);
     });
-  } catch (err) {
-    logger.error(err.message);
-    process.exit(1);
-  }
-  logger.info('Done!');
-  process.exit(0);
 };
