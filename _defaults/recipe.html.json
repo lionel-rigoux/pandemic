@@ -1,5 +1,5 @@
 {
-  "options": "--self-contained --css=./template.css",
+  "options": "--self-contained --include-in-header ./template.css",
   "filters": [
     "pandoc-fignos",
     "pandoc-eqnos",

@@ -1,8 +1,8 @@
+<style type="text/css">
 /*
  * I add this to html files generated with pandoc.
  */
-
-html {
+ html {
   font-size: 100%;
   overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
@@ -326,3 +326,4 @@ table td {
     page-break-after: avoid;
   }
 }
+</style>
