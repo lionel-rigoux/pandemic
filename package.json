@@ -26,6 +26,7 @@
     "caporal": "0.9.0",
     "cross-env": "^5.2.0",
     "fs-extra": "5.0.0",
+    "pandemic-mustache": "^0.1.0",
     "parse-github-url": "1.0.2",
     "shelljs": "0.8.1",
     "yaml-front-matter": "3.4.0"
