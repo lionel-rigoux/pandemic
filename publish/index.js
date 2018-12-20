@@ -12,7 +12,7 @@ module.exports = (args, options, logger) => {
     format: options.format
   })
     .catch((err) => {
-      logger.error(`*** Compilation failed:\n ${err}`);
+      logger.error(`Compilation failed:\n ${err.message}`);
       process.exit(1);
     })
     .then((result) => {
