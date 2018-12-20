@@ -31,7 +31,7 @@ prog
   .command('publish', 'Compile a manuscript using pandoc')
   .argument('[source]', 'Source file', /\.md$/, 'manuscript.md')
   .option('--to <recipe>', 'template to use for compiling')
-  .option('-f, --format <ext>', 'Destination format extension', /^pdf|docx|html|tex$/)
+  .option('-f, --format <ext>', 'Destination format extension')
   .action(publish);
 
 manage();
