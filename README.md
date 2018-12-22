@@ -17,6 +17,8 @@ Pandemic is a suite of command line tools based on Pandoc to help you automatize
 npm install -g  pandemic
 ```
 
+You will also need Pandoc and latex installed on your computer (see below).
+
 ## Basics
 
 ```bash
@@ -223,25 +225,12 @@ nvm install --lts
 Go to the [Pandoc website](https://github.com/jgm/pandoc/releases), download the installer for your system, run the installer.
 
 > Future versions of Pandemic will include pandoc binaries to avoid compatibility issues.
-### pandoc filters
 
-You will also need to install the following pandoc filters
+Pandemic relies on pandemic-citeproc, which should installed along with pandoc. It also includes a copy of the following filters, in case you don't already have them:
 
-**TL;DR:**
-
-```
-sudo easy_install -U setuptools
-sudo easy_install pip
-sudo pip install pandoc-eqnos
-sudo pip install pandoc-fignos
-sudo pip install pandoc-tablenos
-sudo pip install pandoc-citeproc
-```
-
-- [pandoc-fignos](https://github.com/tomduck/pandoc-fignos)
-- [pandoc-eqnos](https://github.com/tomduck/pandoc-eqnos)
-- [pandoc-tablenos](https://github.com/tomduck/pandoc-tablenos)
-- [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc)
+- [pandoc-fignos 1.3](https://github.com/tomduck/pandoc-fignos)
+- [pandoc-eqnos 1.3](https://github.com/tomduck/pandoc-eqnos)
+- [pandoc-tablenos 1.3](https://github.com/tomduck/pandoc-tablenos)
 
 ### LaTeX
 
@@ -256,7 +245,7 @@ Well, I hope you already have this one installed!
 - [x] propose publishing templates
 - [x] include pandoc filters in the publishing pipeline
 - [x] possibility to add custom scaffolds and publishing recipes from git
-- [ ] add possibility in recipes for pre and post publishing hooks
+- [ ] add possibility in recipes ~for pre and~ post publishing hooks
 - [ ] automated image management to facilitate publication (extraction, reformating, isolated legends, etc)
 - [ ] provide tools to process revisions and suggestions (diff display, selective merge, etc.)?
 - [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))

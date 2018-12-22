@@ -1,0 +1,24 @@
+[submodule "vendor/pandoc-eqnos"]
+	path = vendor/pandoc-eqnos
+	url = https://github.com/tomduck/pandoc-eqnos.git
+	ignore = dirty
+[submodule "vendor/pandoc-fignos"]
+	path = vendor/pandoc-fignos
+	url = https://github.com/tomduck/pandoc-fignos.git
+	ignore = dirty
+[submodule "vendor/pandoc-tablenos"]
+	path = vendor/pandoc-tablenos
+	url = https://github.com/tomduck/pandoc-tablenos.git
+	ignore = dirty
+[submodule "vendor/pandocfilters"]
+	path = vendor/pandocfilters
+	url = https://github.com/jgm/pandocfilters.git
+	ignore = dirty
+[submodule "vendor/pandoc-xnos"]
+	path = vendor/pandoc-xnos
+	url = https://github.com/tomduck/pandoc-xnos.git
+	ignore = dirty
+[submodule "vendor/psutils"]
+	path = vendor/psutils
+	url = https://github.com/giampaolo/psutil.git
+	ignore = dirty
