@@ -32,6 +32,7 @@ prog
   .argument('[source]', 'Source file', /\.md$/, 'manuscript.md')
   .option('--to <recipe>', 'Template to use for compiling')
   .option('-f, --format <ext>', 'Destination format extension')
+  .option('-v, --verbose', 'Print details of compilation')
   .action(publish);
 
 manage();
