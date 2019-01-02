@@ -1,0 +1,6 @@
+{
+  "options": [
+    "--self-contained",
+    "--include-in-header ./template.css"
+  ]
+}

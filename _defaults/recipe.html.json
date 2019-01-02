@@ -1,3 +1,7 @@
 {
-  "options": "--self-contained --include-in-header ./template.css"
+  "options": [
+    "--include-in-header ./template.css",
+    "--extract-media=\"$PANDOC_TARGET_PATH/media\"",
+    "--mathjax"
+  ]
 }
