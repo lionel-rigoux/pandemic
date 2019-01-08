@@ -17,9 +17,11 @@ Pandemic is a suite of command line tools based on Pandoc to help you automatize
 npm install -g  pandemic
 ```
 
-You will also need Pandoc and latex installed on your computer (see below).
+You will also need to install [Pandoc](https://github.com/jgm/pandoc/releases) (v2.1.1 or above) and [LaTeX](https://www.latex-project.org/get/) if it's not already the case.
 
 ## Basics
+
+Markdown is a simple and efficient format to write academic documents. It can easily handle citations, images, equations, and cross referencing. Moreover, as a pure text format, it plays well with versioning tools and is inherently cross-platform.
 
 ```bash
 # Find a cosy place
@@ -36,23 +38,47 @@ pandemic help
 pandemic help <command>
 ```
 
-## Publishing Markdown documents using Pandoc
-
-Markdown is a simple and efficient format to write academic documents. It can easily handle citations, images, equations, and cross referencing. Moreover, as a pure text format, it plays well with versioning tools and is inherently cross-platform.
-
-```bash
-# Create an example of markdown document
-pandemic scaffold manuscript
-
-# Convert to publication ready pdf
-pandemic publish
-```
-
-> You can export to Word format using the option `--format docx`
+> You can export to other formats eg. Word using the option: `--format docx`
 
 ### Bibliography
 
-By default, Pandemic will look for a `bibliography.bib` file in the same directory as the compiled document to parse citations. If you need to use a custom libarary, specify the (relative) path to the .bib file in the YAML header of your markdown document.
+By default, Pandemic will look for a `bibliography.bib` file in the same directory as the compiled document to parse citations. If you need to use a custom library, you can specify the (relative) path to the .bib file(s) in the YAML header of your markdown document:
+
+```yaml
+---
+bibliography: myReferences.bib
+---
+```
+
+You can also provide multiple bibfiles if needed:
+
+```yaml
+---
+bibliography:
+  - myReferences.bib
+  - ../shared/references.bib
+---
+```
+
+### Mustache
+
+You can use [Mustache](https://mustache.github.io/mustache.5.html) templating in your document. You simply need to specify one or multiple json or yaml files which contain the data to be parsed, and Pandemic will automatically take care of it. By default, Pandemic will also look for a `results.json` file in the same directory as the compiled document and try to mustache it.
+
+```yaml
+---
+mustache: myResults.json
+---
+```
+
+or
+
+```yaml
+---
+mustache:
+  - myResultsA.yaml
+  - myResultsB.json
+---
+```
 
 ### Use publishing recipes
 
@@ -78,8 +104,10 @@ pandemic publish --to eisvogel
 Note that you can also specify the recipe and format directly in the YAML frontmatter of your markdown document:
 
 ```YAML
+---
 pandemic:
   recipe: eisvogel
+---
 ```
 
 ### Recipe instruction
@@ -226,7 +254,7 @@ Go to the [Pandoc website](https://github.com/jgm/pandoc/releases), download the
 
 > Future versions of Pandemic will include pandoc binaries to avoid compatibility issues.
 
-Pandemic relies on pandemic-citeproc, which should installed along with pandoc. It also includes a copy of the following filters, in case you don't already have them:
+Pandemic relies on pandemic-citeproc, which should installed along with pandoc. Pandemic also includes a copy of the following filters, in case you don't already have them:
 
 - [pandoc-fignos 1.3](https://github.com/tomduck/pandoc-fignos)
 - [pandoc-eqnos 1.3](https://github.com/tomduck/pandoc-eqnos)
@@ -245,7 +273,7 @@ Well, I hope you already have this one installed!
 - [x] propose publishing templates
 - [x] include pandoc filters in the publishing pipeline
 - [x] possibility to add custom scaffolds and publishing recipes from git
-- [ ] add possibility in recipes ~for pre and~ post publishing hooks
+- [x] add possibility in recipes ~for pre and~ post publishing hooks
 - [ ] automated image management to facilitate publication (extraction, reformating, isolated legends, etc)
 - [ ] provide tools to process revisions and suggestions (diff display, selective merge, etc.)?
 - [ ] add pandoc binaries as dependencies (like in [pandoc-bin](https://github.com/toshgoodson/pandoc-bin))
