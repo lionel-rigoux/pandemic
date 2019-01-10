@@ -1,16 +1,12 @@
 # Pandemic
 
-> [https://lionel-rigoux.github.io/pandemic/](https://lionel-rigoux.github.io/pandemic/)
+ See the [Official website](https://lionel-rigoux.github.io/pandemic/) for installation and use.
+
+---
 
 ![](pandemic.svg)
 
-## Install
-
-```bash
-npm install -g  pandemic
-```
-
-You will also need to install [Pandoc](https://github.com/jgm/pandoc/releases) (v2.1.1 or above) and [LaTeX](https://www.latex-project.org/get/) if it's not already the case.
+---
 
 ## Roadmap
 
