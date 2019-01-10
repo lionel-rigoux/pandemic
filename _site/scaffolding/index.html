@@ -5,12 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scaffolding - Pandemic</title>
-  <meta name="description" content="">
+  <meta name="description" content="Simplified academic writing with pandoc">
   <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/pandemic/css/main.css">
   <link rel="canonical" href="http://localhost:4000/pandemic/scaffolding/">
-  <link rel="alternate" type="application/rss+xml" title="Pandemic" href="http://localhost:4000/pandemic/feed.xml">
-<script src="http://127.0.0.1:35729/livereload.js"></script></head>
+</head>
 
   <body>
     <main class="u-container">
@@ -37,15 +36,13 @@
 
     <p>Scaffolding allows you to create a set of files and folders that can serve as a starting point for a new project. Scaffolding is a good way to enforce structural consistency across projects. It can also help you save a lot of time by avoiding repeated copy/pasting from previous projects in the initial setup.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic scaffold &lt;scaffoldName&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic scaffold &lt;scaffoldName&gt;
+</code></pre></div></div>
 
 <p>Pandemic includes by default one scaffold, <code class="highlighter-rouge">manuscript</code> so you can try right away:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic scaffold manuscript
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic scaffold manuscript
+</code></pre></div></div>
 
 <h1 id="managing-scaffolds">Managing scaffolds</h1>
 
@@ -55,17 +52,15 @@
   <li>To see the available scaffolds:</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource list scaffolds
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic resource list scaffolds
+</code></pre></div></div>
 
 <ul>
   <li>Install a new scaffold</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource install scaffold <span class="o">[</span>--as &lt;scaffoldName&gt;] &lt;scaffoldURL&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic resource install scaffold <span class="o">[</span><span class="nt">--as</span> &lt;scaffoldName&gt;] &lt;scaffoldURL&gt;
+</code></pre></div></div>
 
 <p>Where scaffoldURL is any git repository. By default, the new scaffold name will be the same as the name of the repo. You can override this behavior and specify a custom name using <code class="highlighter-rouge">--as &lt;scaffoldName&gt;</code>.</p>
 
@@ -73,17 +68,15 @@
   <li>Note that if the remote repo is updated, you can update your local copy:</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource update scaffold &lt;scaffoldName&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic resource update scaffold &lt;scaffoldName&gt;
+</code></pre></div></div>
 
 <ul>
   <li>You can also remove an unused scaffold:</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource remove scaffold &lt;template&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic resource remove scaffold &lt;template&gt;
+</code></pre></div></div>
 
   </div>
   <footer class="c-article__footer">

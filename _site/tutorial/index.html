@@ -5,12 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Getting Started - Pandemic</title>
-  <meta name="description" content="">
+  <meta name="description" content="Simplified academic writing with pandoc">
   <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/pandemic/css/main.css">
   <link rel="canonical" href="http://localhost:4000/pandemic/tutorial/">
-  <link rel="alternate" type="application/rss+xml" title="Pandemic" href="http://localhost:4000/pandemic/feed.xml">
-<script src="http://127.0.0.1:35729/livereload.js"></script></head>
+</head>
 
   <body>
     <main class="u-container">
@@ -45,17 +44,15 @@
 
 <p>To quick start your project, you can ask pandemic to prepare a boilerplate for you:</p>
 
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic scaffold manuscript
-</code></pre>
-</div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic scaffold manuscript
+</code></pre></div></div>
 
 <p>Check <a href="/pandemic/scaffolding/">here</a> to see how you can define your own boilerplates.</p>
 
 <p>Once you have edited your <code class="highlighter-rouge">manuscript.md</code> file you can simply generate a publication ready document:</p>
 
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic publish
-</code></pre>
-</div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic publish
+</code></pre></div></div>
 
 <p>Voilà! You now have in the <code class="highlighter-rouge">_public</code> folder a compiled version of your manuscript.</p>
 
@@ -66,41 +63,36 @@
 <p>By default, pandemic will export to .pdf format.
 You can easily override this default when calling pandoc, eg.:</p>
 
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic publish --format docx
-</code></pre>
-</div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic publish <span class="nt">--format</span> docx
+</code></pre></div></div>
 
 <p>You can also specify the desired format in the front-matter of your markdown document:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
-<span class="s">pandemic</span><span class="pi">:</span>
-  <span class="s">format</span><span class="pi">:</span> <span class="s">docx</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">pandemic</span><span class="pi">:</span>
+  <span class="na">format</span><span class="pi">:</span> <span class="s">docx</span>
 <span class="nn">---</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="styling">Styling</h1>
 
 <p>If you want to change the look of your compiled document, you will need to install <code class="highlighter-rouge">recipes</code> which contain a template and instructions to compile your document with a specific style. For example:</p>
 
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
-</code></pre>
-</div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic resource install recipe <span class="nt">--as</span> eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
+</code></pre></div></div>
 
 <p>In order to use the recipe, either specify it when calling pandemic:</p>
 
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic publish --to eisvogel
-</code></pre>
-</div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pandemic publish <span class="nt">--to</span> eisvogel
+</code></pre></div></div>
 
 <p>Or specify the desired recipe in the front-matter of your markdown document:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
-<span class="s">pandemic</span><span class="pi">:</span>
-  <span class="s">recipe</span><span class="pi">:</span> <span class="s">eisvogel</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">pandemic</span><span class="pi">:</span>
+  <span class="na">recipe</span><span class="pi">:</span> <span class="s">eisvogel</span>
 <span class="nn">---</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can also <a href="/pandemic/recipes/">create your own recipe</a>!</p>
 
@@ -108,86 +100,77 @@ You can easily override this default when calling pandoc, eg.:</p>
 
 <p>You can insert references in your markdown document using the <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citations">markdown citation syntax</a>. By default, Pandemic will look for a <code class="highlighter-rouge">bibliography.bib</code> bib file in the source folder to parse the references. You can however override this default by specifying the relative path to you .bib files in the front-matter:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
-<span class="s">bibliography</span><span class="pi">:</span> <span class="s">myReferences.bib</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">bibliography</span><span class="pi">:</span> <span class="s">myReferences.bib</span>
 <span class="nn">---</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can also provide multiple .bib files if needed:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
-<span class="s">bibliography</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">bibliography</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">myReferences.bib</span>
   <span class="pi">-</span> <span class="s">../shared/references.bib</span>
 <span class="nn">---</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Example</strong></p>
 
 <p><strong><em>manuscript.md</em></strong></p>
-<div class="highlighter-rouge"><pre class="highlight"><code>As demonstrated by @doe2018, ...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>As demonstrated by @doe2018, ...
 # References
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong><em>bibliography.bib</em></strong></p>
-<div class="highlighter-rouge"><pre class="highlight"><code>@article{doe2018,
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{doe2018,
   author={Doe, John},
   year={2018},
   title={A fantastic paper}
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Will generate using pandemic:</p>
 
 <p><strong><em>manuscript.pdf</em></strong></p>
-<div class="highlighter-rouge"><pre class="highlight"><code>As demonstrated by Doe (2018), ...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>As demonstrated by Doe (2018), ...
 
 References
 Doe, John. 2018. “A Fantastic Paper.”
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="mustache">Mustache</h1>
 
 <p>You can use <a href="https://mustache.github.io/mustache.5.html">Mustache</a> templating in your document. You simply need to specify one or multiple .json or .yaml files which contain the data to be parsed, and Pandemic will automatically take care of it. By default, Pandemic will also look for a <code class="highlighter-rouge">results.json</code> file in the same directory as the compiled document and try to mustache it. You can however override this default in the front-matter of your document:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
-<span class="s">mustache</span><span class="pi">:</span> <span class="s">myResults.json</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">mustache</span><span class="pi">:</span> <span class="s">myResults.json</span>
 <span class="nn">---</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>or</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
-<span class="s">mustache</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">mustache</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">myResultsA.yaml</span>
   <span class="pi">-</span> <span class="s">myResultsB.json</span>
 <span class="nn">---</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Example</strong></p>
 
 <p><strong><em>manuscript.md</em></strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>There was an effect ($\beta$ = {{ exp1.beta }}, p = {{ exp1.pvalue }}).
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>There was an effect ($\beta$ = {{ exp1.beta }}, p = {{ exp1.pvalue }}).
+</code></pre></div></div>
 
 <p><strong><em>results.json</em></strong></p>
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"exp1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"beta"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.80</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"pvalue"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.036</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"exp1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"beta"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.80</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pvalue"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.036</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Will generate using pandemic:</p>
 

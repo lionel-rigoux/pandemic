@@ -1,6 +1,6 @@
 # Site settings
 title: "Pandemic"
-description: 
+description:
 author: Lionel Rigoux
 email: lionel.rigoux@gmail.com
 twitter_username: lionel_rigoux
@@ -14,10 +14,7 @@ disqus_id:
 
 # Build settings
 include: [_pages]
-markdown: kramdown
-permalink: /:year/:month/:title.html
-
 sass:
-    style: compressed
+  style: compressed
 
 exclude: [vendor]
