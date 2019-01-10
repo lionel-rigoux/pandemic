@@ -1,5 +1,5 @@
 ---
 layout: content
-title: Recipes
+title: Styling recipes
 permalink: /recipes/
 ---
