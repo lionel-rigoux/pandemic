@@ -104,7 +104,95 @@ You can easily override this default when calling pandoc, eg.:</p>
 
 <h1 id="bibliography">Bibliography</h1>
 
+<p>You can insert references in your markdown document using the <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citations">markdown citation syntax</a>. By default, Pandemic will look for a <code class="highlighter-rouge">bibliography.bib</code> bib file in the source folder to parse the references. You can however override this default by specifying the relative path to you .bib files in the front-matter:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">bibliography</span><span class="pi">:</span> <span class="s">myReferences.bib</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<p>You can also provide multiple .bib files if needed:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">bibliography</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">myReferences.bib</span>
+  <span class="pi">-</span> <span class="s">../shared/references.bib</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<p><strong>Example</strong></p>
+
+<p><strong><em>manuscript.md</em></strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>As demonstrated by @doe2018, ...
+# References
+</code></pre>
+</div>
+
+<p><strong><em>bibliography.bib</em></strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>@article{doe2018,
+  author={Doe, John},
+  year={2018},
+  title={A fantastic paper}
+}
+</code></pre>
+</div>
+
+<p>Will generate using pandemic:</p>
+
+<p><strong><em>manuscript.pdf</em></strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>As demonstrated by Doe (2018), ...
+
+References
+Doe, John. 2018. “A Fantastic Paper.”
+</code></pre>
+</div>
+
 <h1 id="mustache">Mustache</h1>
+
+<p>You can use <a href="https://mustache.github.io/mustache.5.html">Mustache</a> templating in your document. You simply need to specify one or multiple .json or .yaml files which contain the data to be parsed, and Pandemic will automatically take care of it. By default, Pandemic will also look for a <code class="highlighter-rouge">results.json</code> file in the same directory as the compiled document and try to mustache it. You can however override this default in the front-matter of your document:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">mustache</span><span class="pi">:</span> <span class="s">myResults.json</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<p>or</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">mustache</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">myResultsA.yaml</span>
+  <span class="pi">-</span> <span class="s">myResultsB.json</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<p><strong>Example</strong></p>
+
+<p><strong><em>manuscript.md</em></strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>There was an effect ($\beta$ = {{ exp1.beta }}, p = {{ exp1.pvalue }}).
+</code></pre>
+</div>
+
+<p><strong><em>results.json</em></strong></p>
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"exp1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"beta"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.80</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"pvalue"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.036</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Will generate using pandemic:</p>
+
+<p><strong><em>manuscript.pdf</em></strong></p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code>There was an effect of treatment (&beta;  = 2.80, p = 0.036).
+</code></pre></div>
 
   </div>
   <footer class="c-article__footer">
