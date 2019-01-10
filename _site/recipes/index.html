@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Styling recipes - Pandemic</title>
+  <title>Style with recipes - Pandemic</title>
   <meta name="description" content="">
   <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/pandemic/css/main.css">
@@ -27,13 +27,173 @@
     <article class="c-article">
   
   <header class="c-article__header">
-    <h1 class="c-article__title">Styling recipes</h1>
+    <h1 class="c-article__title">Style with recipes</h1>
   </header>
   
   <div class="c-article__main">
-    
+    <ul class="toc">
+  <li><a href="#what-is-a-pandemic-recipe">What is a pandemic recipe?</a></li>
+  <li><a href="#managing-recipes">Managing recipes</a></li>
+  <li><a href="#creating-your-own-recipe">Creating your own recipe</a>
+    <ul>
+      <li><a href="#recipe-instructions">Recipe instructions</a></li>
+      <li><a href="#template-file">Template file</a></li>
+      <li><a href="#pandoc-options">Pandoc options</a></li>
+      <li><a href="#pandoc-filters">Pandoc filters</a></li>
+      <li><a href="#preprocessing">Preprocessing</a></li>
+    </ul>
+  </li>
+</ul>
 
-    
+    <h1 id="what-is-a-pandemic-recipe">What is a pandemic recipe?</h1>
+
+<p>When you publish your document with pandemic, you can instantly change the  style of the output by using a <em>recipe</em>. Need to reformat a manuscript for a different journal with different guidelines, citations styles ..? Just select another recipe!</p>
+
+<p>In practice, a <em>recipe</em> is a set of files and instructions that pandemic will use is to that contains all the informations needed to style a document. To nudge pandemic users to share their templates, a recipe must be installed from a git repository. For example:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
+</code></pre>
+</div>
+
+<p>You can then compile your manuscript using the new template:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic publish --to eisvogel
+</code></pre>
+</div>
+
+<p>Note that you can also specify the recipe and format directly in the YAML front-matter of your markdown document:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">pandemic</span><span class="pi">:</span>
+  <span class="s">recipe</span><span class="pi">:</span> <span class="s">eisvogel</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<h1 id="managing-recipes">Managing recipes</h1>
+
+<ul>
+  <li>List installed recipes:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource list recipes
+</code></pre>
+</div>
+
+<ul>
+  <li>Install a new recipe:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource install recipe <span class="o">[</span>--as &lt;recipeName&gt;] &lt;recipeURL&gt;
+</code></pre>
+</div>
+
+<p>By default, the recipe name will be the name of the repo. You can override this default using the <code class="highlighter-rouge">--as &lt;name&gt;</code> option.</p>
+
+<ul>
+  <li>Update recipe from remote repo:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource update recipe &lt;recipeName&gt;
+</code></pre>
+</div>
+
+<ul>
+  <li>Delete existing recipe from local storage:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource remove recipe &lt;recipeName&gt;
+</code></pre>
+</div>
+
+<p>If you curious, you can look in the <code class="highlighter-rouge">.pandemic</code> folder in your home directory. All the recipes are simply cloned there.</p>
+
+<h1 id="creating-your-own-recipe">Creating your own recipe</h1>
+
+<p>By default, Pandemic will use a standard set of template, filters, and options that should cover the usual needs for manuscript publication (citations, etc.). You can display the details of what pandemic exactly does by using the option <code class="highlighter-rouge">--verbose</code> when publishing.</p>
+
+<p>A recipe is a set of files and instructions you can use to modify part or all of those default behaviors. The sections below describe point by point how you can tweak pandemic to concoct the perfect document.</p>
+
+<h2 id="recipe-instructions">Recipe instructions</h2>
+
+<p>The first thing pandemic will look for in the recipe folder is a <em>recipe instructions</em> file named <code class="highlighter-rouge">recipe.&lt;format&gt;.json</code>where <code class="highlighter-rouge">&lt;format&gt;</code> is the extension of the compiled document.</p>
+
+<p>If only one instruction file is found, pandemic will automatically guess the output format. You can also decline your recipe in multiple ‘flavors’. For example, in addition to a <code class="highlighter-rouge">recipe.pdf.json</code>, you could also have a <code class="highlighter-rouge">recipe.draft.pdf.json</code> that will use slightly different options for the compilation. In that case, you will need to specify the output format (see <a href="/pandemic/tutorial/#output-format">here</a>), i.e. <code class="highlighter-rouge">pdf</code> or <code class="highlighter-rouge">draft.pdf</code>, when publishing your document.</p>
+
+<p>The recipe instruction file must be written in JSON and can specify any combination of the entries described below.</p>
+
+<h2 id="template-file">Template file</h2>
+
+<p>Pandemic is build on <a href="https://pandoc.org">pandoc</a>, and therefore can make use of any pandoc template.
+A template is basically a boilerplate with placeholders for the content of the document you want to compile.
+If you’re new to this, you can first have look at the <a href="https://github.com/jgm/pandoc-templates">pandoc default templates</a> or this list of <a href="https://github.com/jgm/pandoc-templates">user contributed templates</a> and tweaks those templates to your need.
+You can also check the dedicated <a href="https://pandoc.org/MANUAL.html#templates">pandoc manual</a>.
+With a bit of training, you will be able to convert any existing .tex, .html, .docx, … document you like into a pandoc template that you can reuse indefinitely to style your markdown document.</p>
+
+<p>Once you have your template, just provide its path (relative to the instructions file, ie. the root of the recipe folder) in the instructions:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"template"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./eisvogel.tex"</span><span class="p">,</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Note that if no template is given, pandoc will try to guess if a file in the recipe folder could be a good candidate, or fall back to the default pandoc template.</p>
+
+<h2 id="pandoc-options">Pandoc options</h2>
+
+<p>Pandoc can be configured with a lot of different general and format specific <a href="https://pandoc.org/MANUAL.html#options">options</a>. In order to use those options in pandemic, you need to list them in the recipe instruction file as a single string or an array of strings with the <code class="highlighter-rouge">options</code> label.</p>
+
+<p>For example, if you want to use a custom title page with the <a href="https://github.com/Wandmalfarbe/pandoc-latex-template">eisvogel recipe</a> we installed above, you could create a <code class="highlighter-rouge">recipe.pdf.json</code> file in the <code class="highlighter-rouge">~/.pandemic/recipe/eisvogel/</code> folder with the following content:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"options"</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"-V titlepage=true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"-V titlepage-color='D8DE2C'"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="pandoc-filters">Pandoc filters</h2>
+
+<p>Filters are plugins that extend the functionalities of pandoc. Pandemic includes <a href="https://github.com/tomduck/pandoc-eqnos">pandoc-eqnos</a>, <a href="https://github.com/tomduck/pandoc-fignos">pandoc-fignos</a>, and <a href="https://github.com/tomduck/pandoc-tablenos">pandoc-tablenos</a> and applies them by default. Those filters allows to cross-reference equations, figures, and tables.</p>
+
+<p>If you want to use a different set of filters, for example from <a href="https://github.com/jgm/pandoc/wiki/Pandoc-Filters">this list</a>, simply provide their name in the instruction file:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"filters"</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"pandoc-placetable"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"pandoc-fignos"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Specifying such a list of filters will override the default xnos filters. If you still want them, you’ll have to list them in the instructions. You can also provide an empty list to disable filters all together.</p>
+
+<p>Please note that the respective filters need to be installed on your machine, as only the default (xnos) are provided with pandemic. If you intend to share your recipe, do not forget to mention those dependencies or find a way to include the filters within your recipe.</p>
+
+<h2 id="preprocessing">Preprocessing</h2>
+
+<p>Finally, you might want to process the markdown document before it gets compiled by pandoc. By default, pandemic applies mustache templating via the <a href="https://www.npmjs.com/package/pandemic-mustache">pandemic-mustache</a> tool.
+This default can be overwritten by specifying a list of preprocessing steps in your instruction file:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"preprocessing"</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"markdown-pp"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Like for filters, this list completely override the default and you will need to explicitly list <code class="highlighter-rouge">pandemic-mustache</code> if you need it. Also, any software, script, or command line utility called in the preprocessing steps needs to be installed on the machine or made available in the recipe folder.</p>
+
+<p><strong><em>Writing your own preprocessor</em></strong></p>
+
+<p>Each preprocessing step can be virtually any command you want. The only constraint is that it should read the original content on <code class="highlighter-rouge">stdin</code> and write the modified content on <code class="highlighter-rouge">stdout</code>. Logging should be directed to <code class="highlighter-rouge">stderr</code>. Logs and each steps of preprocessing are accessible by using the <code class="highlighter-rouge">--verbose</code> flag when calling pandemic.</p>
+
+<p>Note that each command will be run from the recipe folder. Two environment variables, <code class="highlighter-rouge">PANDOC_SOURCE_PATH</code> and <code class="highlighter-rouge">PANDOC_TARGET_PATH</code>, provide respectively the path to folder were the source (the document to compile) and the target (the compiled document) are located. Also, preprocessing commands are run via <code class="highlighter-rouge">cross-env</code> to help with cross-platform compatibility.</p>
 
   </div>
   <footer class="c-article__footer">

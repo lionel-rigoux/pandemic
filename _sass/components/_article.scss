@@ -135,9 +135,14 @@
 }
 
 .c-article__main .toc {
-    border-top: solid 1px $c-accent__blue;
-    border-bottom: solid 1px $c-accent__blue;
-    padding: .4rem 0 .4rem 0;
-    margin-left: 0;
-    list-style: none;
+  border-top: solid 1px $c-accent__blue;
+  border-bottom: solid 1px $c-accent__blue;
+  padding: .4rem 0 .4rem 0;
+  margin-left: 0;
+  list-style: none;
+}
+
+.c-article__main .toc ul {
+  list-style: none;
+  font-style: italic;
 }

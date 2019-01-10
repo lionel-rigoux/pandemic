@@ -31,9 +31,59 @@
   </header>
   
   <div class="c-article__main">
-    
+    <ul class="toc">
+  <li><a href="#managing-scaffolds">Managing scaffolds</a></li>
+</ul>
 
-    
+    <p>Scaffolding allows you to create a set of files and folders that can serve as a starting point for a new project. Scaffolding is a good way to enforce structural consistency across projects. It can also help you save a lot of time by avoiding repeated copy/pasting from previous projects in the initial setup.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic scaffold &lt;scaffoldName&gt;
+</code></pre>
+</div>
+
+<p>Pandemic includes by default one scaffold, <code class="highlighter-rouge">manuscript</code> so you can try right away:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic scaffold manuscript
+</code></pre>
+</div>
+
+<h1 id="managing-scaffolds">Managing scaffolds</h1>
+
+<p>A scaffold is simply a folder containing all the arborescence of files to be copied when calling the pandemic scaffold command. Scaffolding will simply copy all the files from the scaffold in the current directory.</p>
+
+<ul>
+  <li>To see the available scaffolds:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource list scaffolds
+</code></pre>
+</div>
+
+<ul>
+  <li>Install a new scaffold</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource install scaffold <span class="o">[</span>--as &lt;scaffoldName&gt;] &lt;scaffoldURL&gt;
+</code></pre>
+</div>
+
+<p>Where scaffoldURL is any git repository. By default, the new scaffold name will be the same as the name of the repo. You can override this behavior and specify a custom name using <code class="highlighter-rouge">--as &lt;scaffoldName&gt;</code>.</p>
+
+<ul>
+  <li>Note that if the remote repo is updated, you can update your local copy:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource update scaffold &lt;scaffoldName&gt;
+</code></pre>
+</div>
+
+<ul>
+  <li>You can also remove an unused scaffold:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>pandemic resource remove scaffold &lt;template&gt;
+</code></pre>
+</div>
 
   </div>
   <footer class="c-article__footer">

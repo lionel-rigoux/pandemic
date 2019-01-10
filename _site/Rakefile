@@ -81,7 +81,7 @@ task :post do
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
-  
+
   puts cyan "Creating new post: #{filename}"
   open(filename, 'w') do |post|
     post.puts "---"
@@ -110,4 +110,3 @@ end
 def rake_running
   `ps | grep 'rake' | grep -v 'grep' | wc -l`.to_i > 1
 end
-
