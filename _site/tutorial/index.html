@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started - Pandemic</title>
+  <meta name="description" content="Write a description of your website here.
+">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/paper-jekyll-theme/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/paper-jekyll-theme/tutorial/">
+  <link rel="alternate" type="application/rss+xml" title="Pandemic" href="http://localhost:4000/paper-jekyll-theme/feed.xml">
+</head>
+
+  <body>
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>Pandemic</code></h1>
+  <p>
+    <a href="/paper-jekyll-theme/">Home</a><span
+          class="u-separate"></span><a href="/paper-jekyll-theme/install/">Install</a><span class="u-separate"></span><a href="/paper-jekyll-theme/tutorial/">Getting started</a><span class="u-separate"></span> <a href="/paper-jekyll-theme/documentation/">Documentation</a>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Getting Started</h1>
+  </header>
+  <div class="c-article__main">
+    <ul class="toc">
+  <li><a href="#a-quick-example">A quick example</a></li>
+  <li><a href="#output-format">Output format</a></li>
+  <li><a href="#styling">Styling</a></li>
+  <li><a href="#bibliography">Bibliography</a></li>
+  <li><a href="#mustache">Mustache</a></li>
+</ul>
+
+    <h1 id="a-quick-example">A quick example</h1>
+
+<p><a href="https://guides.github.com/features/mastering-markdown/">Markdown</a> is a simple and efficient format to write academic documents. It can easily handle citations, images, equations, and cross referencing. Moreover, as a pure text format, you can edit it with any editor (eg. <a href="https://atom.io/">Atom</a>) and it plays well with versioning tools.</p>
+
+<p>To quick start your project, you can ask pandemic to prepare a boilerplate for you:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic scaffold manuscript
+</code></pre>
+</div>
+
+<p>Check <a href="/paper-jekyll-theme/scaffolding/">here</a> to see how you can define your own boilerplates.</p>
+
+<p>Once you have edited your <code class="highlighter-rouge">manuscript.md</code> file you can simply generate a publication ready document:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic publish
+</code></pre>
+</div>
+
+<p>Voilà! You now have in the <code class="highlighter-rouge">_public</code> folder a compiled version of your manuscript.</p>
+
+<h1 id="output-format">Output format</h1>
+
+<p>You can export your document to any format supported by <a href="https://pandoc.org/">Pandoc</a>: .docx, .html, .tex, etc.</p>
+
+<p>By default, pandemic will export to .pdf format.
+You can easily override this default when calling pandoc, eg.:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic publish --format docx
+</code></pre>
+</div>
+
+<p>You can also specify the desired format in the front-matter of your markdown document:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">pandemic</span><span class="pi">:</span>
+  <span class="s">format</span><span class="pi">:</span> <span class="s">docx</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<h1 id="styling">Styling</h1>
+
+<p>If you want to change the look of your compiled document, you will need to install <code class="highlighter-rouge">recipes</code> which contain a template and instructions to compile your document with a specific style. For example:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/pandoc-latex-template
+</code></pre>
+</div>
+
+<p>In order to use the recipe, either specify it when calling pandemic:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>pandemic publish --to eisvogel
+</code></pre>
+</div>
+
+<p>Or specify the desired recipe in the front-matter of your markdown document:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">pandemic</span><span class="pi">:</span>
+  <span class="s">recipe</span><span class="pi">:</span> <span class="s">eisvogel</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
+
+<p>You can also <a href="/paper-jekyll-theme/recipes/">create your own recipe</a>!</p>
+
+<h1 id="bibliography">Bibliography</h1>
+
+<h1 id="mustache">Mustache</h1>
+
+  </div>
+  <footer class="c-article__footer">
+  </footer>
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <hr/>
+  <p>&copy; Lionel Rigoux 2019</p>
+  <p><a href="https://twitter.com/lionel_rigoux">Twitter</a><span class="u-separate"></span><a href="https://github.com/lionel-rigoux">Github</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>
