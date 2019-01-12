@@ -14,7 +14,7 @@ Pandemic includes by default one scaffold, `manuscript` so you can try right awa
 
 
 ```bash
-pandemic scaffold manuscript
+pandemic scaffold demo
 ```
 
 # Managing scaffolds

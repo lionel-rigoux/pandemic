@@ -11,7 +11,7 @@ permalink: /tutorial/
 To quick start your project, you can ask pandemic to prepare a boilerplate for you:
 
 ```sh
-pandemic scaffold manuscript
+pandemic scaffold demo
 ```
 
 Check [here]({{ site.baseurl }}/scaffolding/) to see how you can define your own boilerplates.
