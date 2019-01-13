@@ -1,6 +1,7 @@
 ---
 title: 'A Pandemic document'
 author: 'John Doe'
+date: \today
 ---
 
 # Introduction
@@ -27,7 +28,7 @@ See equation @eq:beta-definition.
 
 ## Mustache
 
-Values between $\{\{$  $\}\}$ will be replaced by the content of the `results.json` file.
+Values between \{\{ \}\} will be replaced by the content of the `results.json` file.
 
 There was an effect ($\beta$ = {{ experiment_1.beta }}, p-value = {{ experiment_1.p-value }} ).
 
