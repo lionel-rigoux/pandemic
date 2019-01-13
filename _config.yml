@@ -5,7 +5,8 @@ author: Lionel Rigoux
 email: lionel.rigoux@gmail.com
 twitter_username: lionel_rigoux
 github_username: lionel-rigoux
-
+user_email: "&#108;&#105;&#111;&#110;&#101;&#108;&#046;&#114;&#105;&#103;&#111;&#117;&#120;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;"
+user_website: "https://lionel-rigoux.github.io"
 baseurl: "/pandemic" # the subpath of your site, e.g. /blog
 url: "https://lionel-rigoux.github.io" # the base hostname & protocol for your site
 
@@ -13,7 +14,8 @@ google_analytics_id:
 disqus_id:
 
 # Build settings
-include: [_pages]
+include: [_pages, _posts]
+
 sass:
   style: compressed
 

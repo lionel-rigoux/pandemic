@@ -1,5 +1,10 @@
 <footer class="c-page__footer">
   <hr/>
   <p>Find on <a href="https://github.com/lionel-rigoux/pandemic">Github</a></p>
-  <p>{{ site.author }} {% if site.twitter_username %}<a href="https://twitter.com/{{ site.twitter_username }}"><i class="fab fa-twitter"></i></a>{% if site.github_username %} {% endif %}{% endif %}{% if site.github_username %}<a href="https://github.com/{{ site.github_username }}"><i class="fab fa-github"></i></a>{% endif %}</p>
+  <p>{{ site.author }}
+    {% if site.user_website %}<a href="{{ site.user_website }}"><i class="fas fa-user-circle"></i></a>{% endif %}
+    {% if site.user_email %}<a href="mailto:{{ site.user_email }}"><i class="fas fa-at"></i></a>{% endif %}
+    {% if site.twitter_username %}<a href="https://twitter.com/{{ site.twitter_username }}"><i class="fab fa-twitter"></i></a>{% endif %}
+    {% if site.github_username %}<a href="https://github.com/{{ site.github_username }}"><i class="fab fa-github"></i></a>{% endif %}
+  </p>
 </footer>

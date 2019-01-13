@@ -1,0 +1,34 @@
+---
+layout: page
+title: "Community"
+permalink: /community/
+---
+<article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">{{ page.title }}</h1>
+  </header>
+  <div class="c-article__main">
+  <p>
+    On this page you will find a curated list of user contributions to Pandemic. Some pandoc templates or processing tools that are not specifically designed for Pandemic but will still work natively are also listed here.
+    If you also want to share your recipe, scaffold, or preprocessing plugin, simply drop <a href="mailto:{{ site.user_email }}">me</a> a message!
+  </p>
+  </div>
+</article>
+
+<section class="c-archives">
+{% for category in site.categories %}
+  <h2 class="c-archives__year">{{ category[0] }}</h2>
+  <ul class="c-archives__list">
+    {% for post in category[1] %}
+      <li class="c-archives__item">
+        <h3>
+          <a target="_blank"
+            href="{{ post.link }}">{{post.title}}</a>
+          <small> by {{post.author}}</small>
+          <p>{{ post.description }}</p>
+        </h3>
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+</section>
