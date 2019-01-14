@@ -29,7 +29,7 @@ prog
 
 prog
   .command('publish', 'Compile a manuscript using pandoc')
-  .argument('[source]', 'Source file', /\.md$/, 'manuscript.md')
+  .argument('[source]', 'Source file', /\.md$/)
   .option('--to <recipe>', 'Template to use for compiling')
   .option('-f, --format <ext>', 'Destination format extension')
   .option('-v, --verbose', 'Print details of compilation')
