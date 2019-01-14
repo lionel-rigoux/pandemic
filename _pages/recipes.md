@@ -17,7 +17,7 @@ pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/p
 You can then compile your manuscript using the new template:
 
 ```bash
-pandemic publish --to eisvogel
+pandemic publish manuscript.md --to eisvogel
 ```
 
 Note that you can also specify the recipe and format directly in the YAML front-matter of your markdown document:

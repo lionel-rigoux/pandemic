@@ -14,16 +14,24 @@ To quick start your project, you can ask pandemic to prepare a boilerplate for y
 pandemic scaffold demo
 ```
 
-Check [here]({{ site.baseurl }}/scaffolding/) to see how you can define your own boilerplates.
+Check [here]({{ site.baseurl }}/scaffolding/) to see how you can define your own scaffolding boilerplates.
 
 
 Once you have edited your `manuscript.md` file you can simply generate a publication ready document:
 
 ```sh
-pandemic publish
+pandemic publish manuscript.md
 ```
 
 Voilà! You now have in the `_public` folder a compiled version of your manuscript.
+
+# Help
+
+To list all the actions Pandemic responds to:
+
+```sh
+pandemic --help
+```
 
 # Output format
 
@@ -33,7 +41,7 @@ By default, pandemic will export to .pdf format.
 You can easily override this default when calling pandoc, eg.:
 
 ```sh
-pandemic publish --format docx
+pandemic publish manuscript.md --format docx
 ```
 
 You can also specify the desired format in the front-matter of your markdown document:
@@ -56,7 +64,7 @@ pandemic resource install recipe --as eisvogel https://github.com/Wandmalfarbe/p
 In order to use the recipe, either specify it when calling pandemic:
 
 ```sh
-pandemic publish --to eisvogel
+pandemic publish manuscript.md --to eisvogel
 ```
 
 Or specify the desired recipe in the front-matter of your markdown document:
