@@ -18,7 +18,3 @@
 	path = vendor/pandoc-xnos
 	url = https://github.com/tomduck/pandoc-xnos.git
 	ignore = dirty
-[submodule "vendor/psutil"]
-	path = vendor/psutil
-	url = https://github.com/giampaolo/psutil.git
-	ignore = dirty
