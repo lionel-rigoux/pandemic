@@ -8,11 +8,8 @@ syntax: glob
 *.orig
 *.pyc
 *.pyd
-*.rej
-*.so
+*.rej‚
 *.swp
 .cache/
 .idea/
 .tox/
-build/
-dist/
