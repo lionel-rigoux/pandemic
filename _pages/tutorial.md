@@ -125,6 +125,20 @@ References
 Doe, John. 2018. “A Fantastic Paper.”
 ```
 
+# Cross referencing
+
+Pandemic automatically extend the classical markdown syntax with [crossref](https://lierdakil.github.io/pandoc-crossref/#syntax) syntax. This allow you to give labels to image, equations, tables, etc. When then referencing those labels, Pandemic will replace the labels by properly numbered references, eg.:
+
+```markdown
+![A meaningfull legend](figures/barGraph1.jpg){#fig:barGraph1}
+
+See figure @fig:barGraph1.
+```
+
+Will produce a document with the figure barGraph1.jpg titled "Figure 1" and a text saying `See figure 1.`
+
+You will find more example in the demo (see above) and on the crossref](https://lierdakil.github.io/pandoc-crossref/#syntax) website.
+
 # Mustache
 
 You can use [Mustache](https://mustache.github.io/mustache.5.html) templating in your document. You simply need to specify one or multiple .json or .yaml files which contain the data to be parsed, and Pandemic will automatically take care of it. By default, Pandemic will also look for a `results.json` file in the same directory as the compiled document and try to mustache it. You can however override this default in the front-matter of your document:
