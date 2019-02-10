@@ -137,7 +137,7 @@ See figure @fig:barGraph1.
 
 Will produce a document with the figure barGraph1.jpg titled "Figure 1" and a text saying `See figure 1.`
 
-You will find more example in the demo (see above) and on the crossref](https://lierdakil.github.io/pandoc-crossref/#syntax) website.
+You will find more example in the demo (see above) and on the [crossref](https://lierdakil.github.io/pandoc-crossref/#syntax) website.
 
 # Mustache
 
