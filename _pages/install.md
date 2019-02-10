@@ -5,7 +5,7 @@ permalink: /install/
 ---
 
 Pandemic comes in different versions which can be installed independently.
-Whichever solution you chose, you will need to have [Pandoc](https://github.com/jgm/pandoc/releases) (v2.1.1 or above) and [LaTeX](https://www.latex-project.org/get/) installed on your system.
+If you want to generate pdf files, you will also need a complete [LaTeX](https://www.latex-project.org/get/) installation on your system.
 
 **Command line tool**
 
