@@ -1,6 +1,6 @@
 const resources = require('../lib/resources-tools.js');
 const ghParser = require('parse-github-url');
-const shell = require('shelljs');
+const { spawnSync } = require('child_process');
 
 module.exports = (args, options, logger) => {
   // TODO: allow branch and revision specific installs
@@ -18,11 +18,17 @@ module.exports = (args, options, logger) => {
 
   // download template
   logger.info(`Install new ${args.resource} "${name}" from ${args.url}`);
-  // execSync(`git clone ${args.url} ${name}`, { stdio: 'pipe', cwd: templatesDir });
-  shell.cd(templatesDir);
-  const status = shell.exec(`git clone ${args.url} ${name}`);
-  if (status.code !== 0) {
-    logger.error(status.stderr);
+  const ps = spawnSync(
+    `git clone ${args.url} ${name}`,
+    {
+      cwd: templatesDir,
+      shell: true
+    }
+  );
+
+  // feedback
+  if (ps.status !== 0) {
+    logger.error(ps.stderr.toString());
     process.exit(1);
   } else {
     logger.info('Done!');
