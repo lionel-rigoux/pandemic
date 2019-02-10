@@ -15,9 +15,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "test": "echo \" Error: no test specified\" && exit 1"
+    "install": "scripts/download-binaries.js"
   },
   "bin": {
     "pandemic": "cli.js"
@@ -25,6 +23,7 @@
   "dependencies": {
     "caporal": "1.1.0",
     "cross-env": "5.2.0",
+    "download": "^7.1.0",
     "find-up": "3.0.0",
     "fs-extra": "7.0.1",
     "pandemic-mustache": "0.3.0",
