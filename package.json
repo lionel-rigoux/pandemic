@@ -3,7 +3,7 @@
   "description": "Simplified academic writing using pandoc",
   "homepage": "https://lionel-rigoux.github.io/pandemic/",
   "author": "Lionel Rigoux <lionel.rigoux@gmail.com> (https://lionel-rigoux.github.io/)",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "BSD-3-Clause",
   "keywords": [
     "pandoc",
@@ -15,10 +15,9 @@
     "url": "https://github.com/lionel-rigoux/pandemic.git"
   },
   "bugs": {
-    "url" : "https://github.com/lionel-rigoux/pandemic/issues"
+    "url": "https://github.com/lionel-rigoux/pandemic/issues"
   },
-  "contributors": [
-  ],
+  "contributors": [],
   "main": "index.js",
   "scripts": {
     "install": "scripts/download-binaries.js"
@@ -26,8 +25,8 @@
   "bin": {
     "pandemic": "cli.js"
   },
-  "engines" : {
-    "node" : ">6.0.0" 
+  "engines": {
+    "node": ">6.0.0"
   },
   "dependencies": {
     "caporal": "1.1.0",
