@@ -1,3 +1,9 @@
 /node_modules
 package-lock.json
+bin/crossref/pandoc-crossref
+bin/crossref/pandoc-crossref.exe
+bin/pandoc/pandoc
+bin/pandoc/pandoc.exe
+bin/pandoc/pandoc-citeproc
+bin/pandoc/pandoc-citeproc.exe
 .DS_Store
