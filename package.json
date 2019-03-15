@@ -20,7 +20,7 @@
   "contributors": [],
   "main": "index.js",
   "scripts": {
-    "install": "scripts/download-binaries.js"
+    "install": "node ./scripts/download-binaries.js"
   },
   "bin": {
     "pandemic": "cli.js"
