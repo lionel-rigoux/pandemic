@@ -1,9 +1,23 @@
 const publish = require('../lib/publish.js');
+const fsTools = require('../lib/fs-tools.js');
 const path = require('path');
 
 module.exports = (args, options, logger) => {
+  // if no source file specified, look for all markdowns in the current folder
+  let sourceList = args.sources;
+  if (!sourceList.length) {
+    sourceList = fsTools
+      .listFiles(
+        process.cwd(),
+        {
+          type: 'file',
+          filter: fileName => /\.md$/.test(fileName)
+        }
+      );
+  }
+
   // check that the source file exists
-  const source = path.resolve(process.cwd(), args.source);
+  const source = path.resolve(process.cwd(), sourceList[0]);
 
   publish({
     source,
