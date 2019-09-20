@@ -28,7 +28,7 @@ prog
 
 prog
   .command('publish', 'Compile a manuscript using pandoc')
-  .argument('[source]', 'Source file', /\.md$/)
+  .argument('[sources...]', 'Source .md file(s)', sources => checkSources(sources))
   .option('--to <recipe>', 'Template to use for compiling')
   .option('-f, --format <ext>', 'Destination format extension')
   .option('-v, --verbose', 'Print details of compilation')
@@ -42,3 +42,18 @@ init(prog.logger());
 /* Put everithing to action */
 /* ========================================================================== */
 prog.parse(process.argv);
+
+/* Validators */
+/* ========================================================================== */
+
+// check that variadic arguments for publishing are all markdown
+function checkSources (sources) {
+  const mdSources = sources.filter(source => /\.md$/.test(source));
+  if (mdSources.length < sources.length) {
+    prog.logger().error('Non markdown sources will be ignored.');
+    if (!mdSources.length) {
+      process.exit(1);
+    }
+  }
+  return mdSources;
+}
