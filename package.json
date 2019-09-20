@@ -3,7 +3,7 @@
   "description": "Simplified academic writing using pandoc",
   "homepage": "https://lionel-rigoux.github.io/pandemic/",
   "author": "Lionel Rigoux <lionel.rigoux@gmail.com> (https://lionel-rigoux.github.io/)",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "license": "BSD-3-Clause",
   "keywords": [
     "pandoc",
